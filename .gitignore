@@ -1,0 +1,5 @@
+*.pyc
+*.cpy
+./custom/receipts/
+db.json
+db.sqlite3

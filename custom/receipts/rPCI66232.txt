@@ -1,0 +1,27 @@
+MANGO & PEAR ENTERPRISE LTD DEALERS IN FRUITS
+TEL : 0243337978 / 0245836125
+LOCATION : KNUST, KUMASI
+------------------------------------------------
+           Purchase Invoice #PCI66232                      ==========================           
+CUSTOMER NAME  :  CoCo GH
+CASHIER NAME   :  ME AM ME
+ISSUED ON      :  Wed Jul 25 09:28:34 AM 2018
+CURRENCY       :  GH CEDIS
+------------------------------------------------
+ITEM(S)                     QTY   SP    TOTAL   
+================================================
+Apple                       28    3.0   84.0    
+Appricot                    27    5.0   135.0   
+Avocado                     39    7.0   273.0   
+Banana                      42    4.0   168.0   
+Blackberry                  45    5.0   225.0   
+CherryPy                    54    5.0   270.0   
+Coconut                     43    4.0   172.0   
+Date                        55    7.0   385.0   
+------------------------------------------------
+TOTAL AMOUNT :                          1712.0
+================================================
+***********THANKS FOR YOUR PATRONAGE************
+
+            Amount is VAT INCLUSIVE             
+  Programmed by : SBKSoftwares Inc. : 0553339728

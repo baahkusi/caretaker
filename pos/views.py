@@ -1,0 +1,153 @@
+from django.shortcuts import render
+from django.views import generic,View
+from django.http import JsonResponse
+from pos.forms import (CreditSaleForm,CashSaleForm,
+                        CreditSalesReturnForm,CashSalesReturnForm)
+from custom.views import (JSONCreateView,JSONUpdateView,
+                            JSONQueryView,JSONCreateMultipleView)
+from pos.models import CreditSale,CashSale,CreditSalesReturn,CashSalesReturn
+from custom.invoice import print_invoice
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
+from custom.decorators import access_required
+# This view loads in the app
+@method_decorator(access_required('cashpos'), name='dispatch')
+class AppInitS(generic.base.TemplateView):
+    template_name="pos/cashsales.html"
+
+@method_decorator(access_required('creditpos'), name='dispatch')
+class AppInitSC(generic.base.TemplateView):
+    template_name="pos/creditsales.html"
+
+@method_decorator(access_required('cashsr'), name='dispatch')
+class AppInitR(generic.base.TemplateView):
+    template_name="pos/creditreturns.html"
+
+@method_decorator(access_required('creditsr'), name='dispatch')
+class AppInitRC(generic.base.TemplateView):
+    template_name="pos/cashreturns.html"
+# helpers
+class SettleSale(View):
+    pass
+#Views for creditsale model
+#create view
+class CreateCreditSale(JSONCreateMultipleView):
+    model = CreditSale
+    form = CreditSaleForm
+    expected_var = "sales"
+    general_vars = ['customer','invoice','customer_name']
+    numbers = ['invoice_number','invoice_time','customer_name']
+    user_required = True
+
+    def print_receipt(self,requestPost):
+        data = super().print_receipt(requestPost)
+
+        opts = {
+            'rname':'Sales Invoice',
+            'rno':data['invoice_number'],
+            'customer':data['customer_name'],
+            'cashier':'ME AM ME',
+            'currency':'GH CEDIS',
+            'rdate':data['invoice_time'],
+        }
+        print_invoice(data['items'], opts)
+#edit view
+class UpdateCreditSale(JSONUpdateView):
+    model = CreditSale
+    form = CreditSaleForm
+    user_required = True
+#query view
+class CreditSales(JSONQueryView):
+    model = CreditSale
+
+#Views for cashsale model
+#create view
+class CreateCashSale(JSONCreateMultipleView):
+    model = CashSale
+    form = CashSaleForm
+    expected_var = "sales"
+    general_vars = ['customer_name','receipt','cash','system','currency']
+    numbers = ['receipt_number','receipt_time','customer_name']
+    user_required = True
+
+    def print_receipt(self,requestPost):
+        data = super().print_receipt(requestPost)
+
+        opts = {
+            'rname':'Sales Receipt',
+            'rno':data['receipt_number'],
+            'customer':data['customer_name'],
+            'cashier':'ME AM ME',
+            'currency':'GH CEDIS',
+            'rdate':data['receipt_time'],
+        }
+        print_invoice(data['items'], opts)
+#edit view
+class UpdateCashSale(JSONUpdateView):
+    model = CashSale
+    form = CashSaleForm
+    user_required = True
+#query view
+class CashSales(JSONQueryView):
+    model = CashSale
+
+#Views for creditsalesreturn model
+#create view
+class CreateCreditSalesReturn(JSONCreateMultipleView):
+    model = CreditSalesReturn
+    form = CreditSalesReturnForm
+    expected_var = "sales_returns"
+    general_vars = ['invoice','customer','customer_name']
+    numbers = ['invoice_number','invoice_time','customer_name']
+    user_required = True
+
+    def print_receipt(self,requestPost):
+        data = super().print_receipt(requestPost)
+        opts = {
+            'rname':'Credit Note',
+            'rno':data['invoice_number'],
+            'customer':data['customer_name'],
+            'cashier':'ME AM ME',
+            'currency':'GH CEDIS',
+            'rdate':data['invoice_time'],
+        }
+        print_invoice(data['items'], opts)
+#edit view
+class UpdateCreditSalesReturn(JSONUpdateView):
+    model = CreditSalesReturn
+    form = CreditSalesReturnForm
+    user_required = True
+#query view
+class CreditSalesReturns(JSONQueryView):
+    model = CreditSalesReturn
+
+#Views for cashsalesreturn model
+#create view
+class CreateCashSalesReturn(JSONCreateMultipleView):
+    model = CashSalesReturn
+    form = CashSalesReturnForm
+    expected_var = "sales_returns"
+    general_vars = ['receipt','cash','system','currency','customer_name']
+    numbers = ['receipt_number','receipt_time','customer_name']
+    user_required = True
+
+    def print_receipt(self,requestPost):
+        data = super().print_receipt(requestPost)
+
+        opts = {
+            'rname':'Cash Sales Returned',
+            'rno':data['receipt_number'],
+            'customer':data['customer_name'],
+            'cashier':'ME AM ME',
+            'currency':'GH CEDIS',
+            'rdate':data['receipt_time'],
+        }
+        print_invoice(data['items'], opts)
+#edit view
+class UpdateCashSalesReturn(JSONUpdateView):
+    model = CashSalesReturn
+    form = CashSalesReturnForm
+    user_required = True
+#query view
+class CashSalesReturns(JSONQueryView):
+    model = CashSalesReturn

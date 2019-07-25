@@ -1,0 +1,22 @@
+MANGO & PEAR ENTERPRISE LTD DEALERS IN FRUITS
+TEL : 0243337978 / 0245836125
+LOCATION : KNUST, KUMASI
+------------------------------------------------
+             Sales Invoice #SI41042                          ======================             
+CUSTOMER NAME  :  CBC
+CASHIER NAME   :  ME AM ME
+ISSUED ON      :  Wed Jul 25 09:30:38 AM 2018
+CURRENCY       :  GH CEDIS
+------------------------------------------------
+ITEM(S)                     QTY   SP    TOTAL   
+================================================
+Avocado                     5     7.0   35.0    
+Blackberry                  7     5.0   35.0    
+CherryPy                    5     5.0   25.0    
+------------------------------------------------
+TOTAL AMOUNT :                          95.0
+================================================
+***********THANKS FOR YOUR PATRONAGE************
+
+            Amount is VAT INCLUSIVE             
+  Programmed by : SBKSoftwares Inc. : 0553339728

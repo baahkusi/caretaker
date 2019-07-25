@@ -1,0 +1,27 @@
+MANGO & PEAR ENTERPRISE LTD DEALERS IN FRUITS
+TEL : 0243337978 / 0245836125
+LOCATION : KNUST, KUMASI
+------------------------------------------------
+             Sales Receipt #SR7791                           =====================              
+CUSTOMER NAME  :  
+CASHIER NAME   :  ME AM ME
+ISSUED ON      :  Wed Jul 25 02:38:55 AM 2018
+CURRENCY       :  GH CEDIS
+------------------------------------------------
+ITEM(S)                     QTY   SP    TOTAL   
+================================================
+Apple                       4     3.0   12.0    
+Appricot                    7     5.0   35.0    
+Avocado                     4     7.0   28.0    
+Banana                      4     4.0   16.0    
+Blackberry                  2     5.0   10.0    
+CherryPy                    2     5.0   10.0    
+Coconut                     1     4.0   4.0     
+Date                        3     7.0   21.0    
+------------------------------------------------
+TOTAL AMOUNT :                          136.0
+================================================
+***********THANKS FOR YOUR PATRONAGE************
+
+            Amount is VAT INCLUSIVE             
+  Programmed by : SBKSoftwares Inc. : 0553339728
