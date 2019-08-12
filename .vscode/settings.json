@@ -1,4 +1,12 @@
 {
-    "python.pythonPath": "/home/sbk/.local/share/virtualenvs/caretaker-jQcIJWpd/bin/python",
-    "python.linting.enabled": false
+    "python.pythonPath": "/home/sbk/.virtualenvs/caretaker/bin/python",
+    "python.linting.enabled": false,
+    "sqltools.connections": [
+        {
+            "database": "./db.sqlite3",
+            "dialect": "SQLite",
+            "name": "dj"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
 }
