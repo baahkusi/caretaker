@@ -1,5 +1,5 @@
 from django.db import models
-from osm.models import Bussiness, BussinessBranch
+ 
 # Create your models here.
 
 class Supplier(models.Model):
@@ -14,5 +14,4 @@ class Supplier(models.Model):
     city = models.CharField(blank=True, max_length=100)
     ghpgps = models.CharField(blank=True, max_length=16)
     comment = models.TextField(blank=True)
-    bussiness = models.OneToOneField(Bussiness, on_delete=models.CASCADE, null=True)
-    branch = models.OneToOneField(BussinessBranch, on_delete=models.CASCADE, null=True)
+    

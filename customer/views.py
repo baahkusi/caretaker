@@ -27,23 +27,21 @@ class CuteSI(JSONQueryView):
         start =  ask.get('start')
         end = ask.get('end')
         cute = ask.get('id')
-        bussiness = ask.get('bussiness')
-        branch = ask.get('branch')
         if not cute:
             data = {'status':False,'msg':'Customer not specified'}
         else:
             data = {'status':True}
             if start is None or end is None:
-                data['sales'] = list(SalesInvoice.objects.values().filter(customer=cute, bussiness=bussiness, branch=branch).order_by('-timestamp'))
+                data['sales'] = list(SalesInvoice.objects.values().filter(customer=cute).order_by('-timestamp'))
                 prepare_invoice_data(data['sales'],'SalesInvoice')
 
-                data['sr'] = list(SalesReturnInvoice.objects.values().filter(customer=cute, bussiness=bussiness, branch=branch).order_by('-timestamp'))
+                data['sr'] = list(SalesReturnInvoice.objects.values().filter(customer=cute).order_by('-timestamp'))
                 prepare_invoice_data(data['sr'],'SalesReturnInvoice')
             else:
-                data['sales'] = list(SalesInvoice.objects.values().filter(timestamp__range=(start,end), customer=cute, bussiness=bussiness, branch=branch).order_by('-timestamp'))
+                data['sales'] = list(SalesInvoice.objects.values().filter(timestamp__range=(start,end), customer=cute).order_by('-timestamp'))
                 prepare_invoice_data(data['sales'],'SalesInvoice')
 
-                data['sr'] = list(SalesReturnInvoice.objects.values().filter(timestamp__range=(start,end), customer=cute, bussiness=bussiness, branch=branch).order_by('-timestamp'))
+                data['sr'] = list(SalesReturnInvoice.objects.values().filter(timestamp__range=(start,end), customer=cute).order_by('-timestamp'))
                 prepare_invoice_data(data['sr'],'SalesReturnInvoice')
         return data
 

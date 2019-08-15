@@ -47,10 +47,6 @@ class JSONCreateView(View):
                 data[form_key] = requestPost[form_key]
         if self.user_required:
             data['employee'] = request.user.id
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
-        data['bussiness'] = bussiness
-        data['branch'] = branch
         return data
 
     def after_create(self,*args):
@@ -78,15 +74,11 @@ class JSONQueryView(View):
         return self.proc_f(request, request.POST, *args, **kwargs)
     
     def proc_f(self, request, method, *args, **kwargs):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
         ask = {}
         if self.accept_arg:
             if method:
                 for key, value in method.items():
                     ask[key] = value
-        ask['bussiness'] = bussiness
-        ask['branch'] = branch
         data = self.make_query(ask)
         if self.export_data:
             export_format = 'pdf' #ask['format']
@@ -171,13 +163,9 @@ class JSONDeleteView(View):
 
     def post(self, request, *args, **kwargs):
         try:
-            bussiness = request.session['BB']['BUSSINESS']
-            branch = request.session['BB']['BRANCH']
             pk = self.kwargs['pk']
             ask = {
                 'pk': pk,
-                'bussiness': bussiness,
-                'branch': branch,
             }
             self.make_query(ask).delete()
             data = {'status':True,'msg':'Item successfully deleted'}
@@ -220,10 +208,6 @@ class JSONCreateMultipleView(View):
                 data[var] = requestPost.get(var)
             if self.user_required:
                 data['employee'] = request.user.id
-            bussiness = request.session['BB']['BUSSINESS']
-            branch = request.session['BB']['BRANCH']
-            data['bussiness'] = bussiness
-            data['branch'] = branch
             form = self.get_form(data)
             if form.is_valid(): # validate and clean form
                 form.save() # save the data
@@ -253,23 +237,15 @@ class JSONQueryGet(View):
     extra_values = {} # {existing:extra}
 
     def get(self, request, *args, **kwargs):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
         attr = attr = {
             'attr': request.GET[self.attr],
-            'bussiness': bussiness,
-            'branch': branch,
         }
         data = self.prepare_data(self.query_get(attr))
         return JsonResponse(data)
 
     def post(self, request, *args, **kwargs):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
         attr = {
             'attr': request.POST[self.attr],
-            'bussiness': bussiness,
-            'branch': branch,
         }
         data = self.prepare_data(self.query_get(attr))
         return JsonResponse(data)
@@ -278,8 +254,6 @@ class JSONQueryGet(View):
         try:
             q_dict = {
                 self.attr:attr['attr'], 
-                'bussiness':attr['bussiness'], 
-                'branch':attr['branch']
             }
             q_model = self.Qmodel.objects.get(**q_dict)
             q_object = list(self.Qmodel.objects.filter(**q_dict).values())[0]

@@ -12,7 +12,7 @@ from django.utils.decorators import method_decorator
 from custom.decorators import access_required
 from access import access
 from django.shortcuts import render
-from osm.models import Bussiness,BussinessBranch
+ 
 
 
 def not_available(request):
@@ -93,20 +93,9 @@ class CreateUser(View):
     def post(self, request, *args, **kwargs):
         username = request.POST['username']
         password = request.POST['password']
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
-        if bussiness is None and branch is None:
-            pass
-        else:
-            try:
-                bussiness = Bussiness.objects.get(pk=bussiness)
-                branch = BussinessBranch.objects.get(pk=branch)
-            except Exception as e:
-                # print(e)
-                return JsonResponse({'status':False, 'msg': 'Bussiness / Branch Failure'})
         try:
             user = User.objects.create_user(username=username,password=password)
-            Access.objects.create(user=user, bussiness=bussiness, branch=branch)
+            Access.objects.create(user=user)
             data = {'status':True,'id':user.id}
         except Exception as e:
             # print(e)
@@ -123,7 +112,7 @@ class DeleteUser(JSONDeleteView):
     model = User
 
     def make_query(self, ask):
-        return self.model.objects.get(pk=ask['pk'], access__bussiness=ask['bussiness'], access__branch=ask['branch'])
+        return self.model.objects.get(pk=ask['pk'])
 
 class AlterAccess(View):
     def post(self, request, *args, **kwargs):
@@ -142,9 +131,7 @@ class AlterAccess(View):
 
 class QueryUsers(View):
     def get(self, request, *args, **kwargs):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
-        users = User.objects.filter(access__bussiness=bussiness, access__branch=branch)
+        users = User.objects.filter(is_superuser=False)
         data = []
         for user in users:
             data.append({
@@ -168,19 +155,10 @@ class LoginUserView(View):
             password = request.POST['password']
             user = authenticate(username=username,password=password)
             if user is not None:
-
-                bussiness = request.session['BB']['BUSSINESS']
-                branch = request.session['BB']['BRANCH']
-                user_bussiness = user.access.bussiness.id if user.access.bussiness else None
-                user_branch = user.access.branch.id if user.access.branch else None
-                if user_bussiness == bussiness and user_branch == branch:
-                    login(request,user)
-                    data = {'status':True}
-                else:
-                    data = {'status':False, 'msg':'not in bussiness'}
-                
+                login(request,user)
+                data = {'status':True}
             else:
-                data = {'status':False, 'msg':'in bussiness'}
+                data = {'status':False, 'msg':'Not Authorized'}
             return JsonResponse(data)
 
 class LoggedInUserInfo(View):
@@ -200,9 +178,7 @@ class LogoutUserView(View):
 
 class UserIdFace(View):
     def get(self, request, *args, **kwargs):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
-        users = User.objects.filter(access__bussiness=bussiness, access__branch=branch)
+        users = User.objects.get()
         data = []
         for user in users:
             data.append({

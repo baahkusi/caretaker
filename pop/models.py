@@ -7,7 +7,7 @@ from inventory.models import InventoryIncrement,InventoryDecrement
 from invoice.models import PurchaseInvoice,PurchaseReturnInvoice
 from receipt.models import PurchaseReceipt,PurchaseReturnReceipt
 from cash.models import CashIncrement,CashDecrement,Cash
-from osm.models import Bussiness, BussinessBranch
+ 
 # Create your models here.
 
 class Purchase(models.Model):
@@ -20,8 +20,6 @@ class Purchase(models.Model):
     cp = models.DecimalField(max_digits=10, decimal_places=3)
     sp = models.DecimalField(max_digits=10, decimal_places=3)
     comment = models.CharField(max_length=256,default="",blank=True)
-    bussiness = models.OneToOneField(Bussiness, on_delete=models.CASCADE, null=True)
-    branch = models.OneToOneField(BussinessBranch, on_delete=models.CASCADE, null=True)
     is_voided = models.BooleanField(blank=True,default=False)
     date = models.DateField(blank=True,null=True)
     time = models.TimeField(blank=True,null=True)

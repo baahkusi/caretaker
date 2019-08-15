@@ -97,9 +97,7 @@ class SalesReceipts(JSONQueryView):
             prepare_receipt_data(data,'SalesReceipt')
             return data
         else:
-            bussiness = ask['bussiness']
-            branch = ask['branch']
-            data = list(self.model.objects.values().filter(timestamp__range=(start,end), bussiness=bussiness, branch=branch).order_by('-timestamp'))
+            data = list(self.model.objects.values().filter(timestamp__range=(start,end)).order_by('-timestamp'))
             prepare_receipt_data(data,'SalesReceipt')
         return data
 
@@ -172,9 +170,7 @@ class SalesReturnReceipts(JSONQueryView):
             prepare_receipt_data(data,'SalesReturnReceipt')
             return data
         else:
-            bussiness = ask['bussiness']
-            branch = ask['branch']
-            data = list(self.model.objects.values().filter(timestamp__range=(start,end), bussiness=bussiness, branch=branch).order_by('-timestamp'))
+            data = list(self.model.objects.values().filter(timestamp__range=(start,end)).order_by('-timestamp'))
             prepare_receipt_data(data,'SalesReturnReceipt')
         return data
 
@@ -233,9 +229,7 @@ class PurchaseReceipts(JSONQueryView):
             prepare_receipt_data(data,'PurchaseReceipt')
             return data
         else:
-            bussiness = ask['bussiness']
-            branch = ask['branch']
-            data = list(self.model.objects.values().filter(timestamp__range=(start,end), bussiness=bussiness, branch=branch).order_by('-timestamp'))
+            data = list(self.model.objects.values().filter(timestamp__range=(start,end)).order_by('-timestamp'))
             prepare_receipt_data(data,'PurchaseReceipt')
         return data
 #query view
@@ -304,9 +298,8 @@ class PurchaseReturnReceipts(JSONQueryView):
             prepare_receipt_data(data,'PurchaseReturnReceipt')
             return data
         else:
-            bussiness = ask['bussiness']
-            branch = ask['branch']
-            data = list(self.model.objects.values().filter(timestamp__range=(start,end), bussiness=bussiness, branch=branch).order_by('-timestamp'))
+           
+            data = list(self.model.objects.values().filter(timestamp__range=(start,end)).order_by('-timestamp'))
             prepare_receipt_data(data,'PurchaseReturnReceipt')
         return data
 

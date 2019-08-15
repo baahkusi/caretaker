@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'pos.apps.PosConfig',
     'supplier.apps.SupplierConfig',
     'stats.apps.StatsConfig',
-    'osm.apps.OsmConfig',
-    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -56,7 +54,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'caretaker.middleware.BussinessBranchMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

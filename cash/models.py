@@ -3,16 +3,14 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from customer.models import Customer
 from django.contrib.auth.models import User
-from osm.models import Bussiness, BussinessBranch
+ 
 
 class Cash(models.Model):# cash system, bank, imprest, card, online wallet
     system = models.CharField(max_length=256,default="Physical Cash")
     currency = models.CharField(max_length=64,default="GHC",blank=True)
     balance = models.DecimalField(max_digits=20,decimal_places=5,default=0,blank=True)
     comment = models.CharField(max_length=256,default="")
-    bussiness = models.OneToOneField(Bussiness, on_delete=models.CASCADE, null=True)
-    branch = models.OneToOneField(BussinessBranch, on_delete=models.CASCADE, null=True)
-
+    
 
 class Change(models.Model):
     cash = models.ForeignKey(Cash,on_delete=models.SET_NULL,null=True)
@@ -30,10 +28,7 @@ class Change(models.Model):
     time = models.TimeField(blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True)
     last_modified = models.DateTimeField(auto_now=True,null=True)
-    bussiness = models.OneToOneField(Bussiness, on_delete=models.CASCADE, null=True)
-    branch = models.OneToOneField(BussinessBranch, on_delete=models.CASCADE, null=True)
-
-
+    
     class Meta:
         abstract = True
 

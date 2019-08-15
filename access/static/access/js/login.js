@@ -1,11 +1,9 @@
 
 webix.ready(function(){
-    var bussiness = document.getElementsByName('bussiness')[0].value;
-    var branch = document.getElementsByName('branch')[0].value;
+    
     // layout
     function login(){
         var fdata = $$("log_form").getValues();
-        fdata.username += '@'+bussiness+'-'+branch;
         
         url = "/access/login";
         webix.ajax().post(url,fdata,function(txt, resp){

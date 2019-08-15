@@ -33,5 +33,4 @@ urlpatterns = [
     url(r'^discount/',include('discount.urls')),
     url(r'^stats/',include('stats.urls')),
     url(r'^logger/',include('logger.urls')),
-    url(r'^osm/', include('osm.urls')),
 ]

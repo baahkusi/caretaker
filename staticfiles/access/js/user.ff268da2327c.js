@@ -1,11 +1,8 @@
 webix.ready(function(){
 
-    var bussiness = document.getElementsByName('bussiness')[0].value;
-    var branch = document.getElementsByName('branch')[0].value;
 
     function create_user(){
         var fdata = $$("user_form").getValues();
-        fdata.username += '@'+bussiness+'-'+branch;
         if (fdata.password!=fdata.confirm) {
             webix.message("Passwords Don't Match","error");
         }else {

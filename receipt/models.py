@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from discount.models import Discount
 from tax.models import Tax
 from cash.models import Cash
-from osm.models import Bussiness, BussinessBranch
+ 
 
 class Receipt(models.Model):
     STATUS = (
@@ -23,9 +23,7 @@ class Receipt(models.Model):
     cash = models.ForeignKey(Cash,on_delete=models.SET_NULL,null=True,blank=True)
     system = models.CharField(max_length=256,default="Physical Cash",blank=True)
     currency = models.CharField(max_length=64,default="GHC",blank=True)
-    bussiness = models.OneToOneField(Bussiness, on_delete=models.CASCADE, null=True)
-    branch = models.OneToOneField(BussinessBranch, on_delete=models.CASCADE, null=True)
-
+    
     class Meta:
         abstract = True
 

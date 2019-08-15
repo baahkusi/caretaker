@@ -27,23 +27,21 @@ class SupPI(JSONQueryView):
         start =  ask.get('start')
         end = ask.get('end')
         sup = ask.get('id')
-        bussiness = ask['bussiness']
-        branch = ask['branch']
         if not sup:
             data = {'status':False,'msg':'Customer not specified'}
         else:
             data = {'status':True}
             if start is None or end is None:
-                data['purchases'] = list(PurchaseInvoice.objects.values().filter(supplier=sup, bussiness=bussiness, branch=branch).order_by('-timestamp'))
+                data['purchases'] = list(PurchaseInvoice.objects.values().filter(supplier=sup).order_by('-timestamp'))
                 prepare_invoice_data(data['purchases'],'PurchaseInvoice')
 
-                data['pr'] = list(PurchaseReturnInvoice.objects.values().filter(supplier=sup, bussiness=bussiness, branch=branch).order_by('-timestamp'))
+                data['pr'] = list(PurchaseReturnInvoice.objects.values().filter(supplier=sup).order_by('-timestamp'))
                 prepare_invoice_data(data['pr'],'PurchaseReturnInvoice')
             else:
-                data['purchases'] = list(PurchaseInvoice.objects.values().filter(timestamp__range=(start,end), supplier=sup, bussiness=bussiness, branch=branch).order_by('-timestamp'))
+                data['purchases'] = list(PurchaseInvoice.objects.values().filter(timestamp__range=(start,end), supplier=sup).order_by('-timestamp'))
                 prepare_invoice_data(data['purchases'],'PurchaseInvoice')
 
-                data['pr'] = list(PurchaseReturnInvoice.objects.values().filter(timestamp__range=(start,end), supplier=sup, bussiness=bussiness, branch=branch).order_by('-timestamp'))
+                data['pr'] = list(PurchaseReturnInvoice.objects.values().filter(timestamp__range=(start,end), supplier=sup).order_by('-timestamp'))
                 prepare_invoice_data(data['pr'],'PurchaseReturnInvoice')
         return data
 

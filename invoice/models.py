@@ -4,7 +4,7 @@ from supplier.models import Supplier
 from django.contrib.auth.models import User
 from discount.models import Discount
 from tax.models import Tax
-from osm.models import Bussiness, BussinessBranch
+ 
 
 class Invoice(models.Model):
     STATUS = (
@@ -22,8 +22,6 @@ class Invoice(models.Model):
     status = models.CharField(max_length=32,choices=STATUS,default='419',blank=True)
     settled = models.DecimalField(max_digits=20, decimal_places=3,blank=True,default=0)
     terms = models.TextField(blank=True)
-    bussiness = models.OneToOneField(Bussiness, on_delete=models.CASCADE, null=True)
-    branch = models.OneToOneField(BussinessBranch, on_delete=models.CASCADE, null=True)
     due_date = models.DateField(blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True)
     last_modified = models.DateTimeField(auto_now=True,null=True)

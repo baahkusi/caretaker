@@ -2,14 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from osm.models import Bussiness, BussinessBranch
+ 
 # Create your models here.
 
 class Category(models.Model):
     name = models.CharField(max_length=50,unique=True)
-    bussiness = models.OneToOneField(Bussiness, on_delete=models.CASCADE, null=True)
-    branch = models.OneToOneField(BussinessBranch, on_delete=models.CASCADE, null=True)
-
+    
     # code = models.CharField(max_length=10,unique=True)
     # desc = models.CharField(max_length=256)
 
@@ -27,9 +25,7 @@ class Product(models.Model):
     max_stock = models.PositiveIntegerField(blank=True,default=100)
     # weight = models.PositiveSmallIntegerField(blank=True)
     unit_of_measure = models.CharField(max_length=8,blank=True)
-    bussiness = models.OneToOneField(Bussiness, on_delete=models.CASCADE, null=True)
-    branch = models.OneToOneField(BussinessBranch, on_delete=models.CASCADE, null=True)
-
+    
 
 class Change(models.Model):
     product = models.ForeignKey(Product,on_delete=models.SET_NULL,null=True)
@@ -44,8 +40,6 @@ class Change(models.Model):
     # cause of change purchases|sales|purchasesreturns|salesreturns
     object_id = models.PositiveIntegerField(blank=True,null=True)
     content_object = GenericForeignKey()
-    bussiness = models.OneToOneField(Bussiness, on_delete=models.CASCADE, null=True)
-    branch = models.OneToOneField(BussinessBranch, on_delete=models.CASCADE, null=True)
     # date = models.DateField(blank=True,null=True)
     # time = models.TimeField(blank=True,null=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True)

@@ -28,13 +28,11 @@ class VoidInvoice(View):
 
     def post(self, request, *args, **kwargs):
         rpk = request.POST['id']
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
         try:
-            invoice = self.Invoice.objects.get(pk=rpk, bussiness=bussiness, branch=branch)
+            invoice = self.Invoice.objects.get(pk=rpk)
             invoice.status = '000'
             invoice.save()
-            records = self.Record.objects.filter(invoice=rpk, bussiness=bussiness, branch=branch)
+            records = self.Record.objects.filter(invoice=rpk)
             for record in records:
                 if not record.is_voided:
                     record.is_voided = True
@@ -48,8 +46,6 @@ class VoidInvoice(View):
 class PayInvoice(View):
 
     def post(self, request, *args, **kwargs):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
         if request.POST:
             cash = int(request.POST.get('payment_method'))
             cash_value = request.POST.get('payment_value')
@@ -68,7 +64,7 @@ class PayInvoice(View):
                 else:
                     try:
                         invoice = request.POST.get('id')
-                        instance = self.invoice.objects.get(pk=invoice, bussiness=bussiness, branch=branch)
+                        instance = self.invoice.objects.get(pk=invoice)
                         instance.status = "007" if pay+settled >= amount else "212"
                         instance.settled += Decimal(pay)
                         instance.save()
@@ -127,9 +123,7 @@ class SalesInvoices(JSONQueryView):
             prepare_invoice_data(data,'SalesInvoice')
             return data
         else:
-            bussiness = ask['bussiness']
-            branch = ask['branch']
-            data = list(self.model.objects.values().filter(timestamp__range=(start,end), bussiness=bussiness, branch=branch).order_by('-timestamp'))
+            data = list(self.model.objects.values().filter(timestamp__range=(start,end)).order_by('-timestamp'))
             prepare_invoice_data(data,'SalesInvoice')
         return data
 #query view
@@ -196,9 +190,7 @@ class SalesReturnInvoices(JSONQueryView):
             prepare_invoice_data(data,'SalesReturnInvoice')
             return data
         else:
-            bussiness = ask['bussiness']
-            branch = ask['branch']
-            data = list(self.model.objects.values().filter(timestamp__range=(start,end), bussiness=bussiness, branch=branch).order_by('-timestamp'))
+            data = list(self.model.objects.values().filter(timestamp__range=(start,end)).order_by('-timestamp'))
             prepare_invoice_data(data,'SalesReturnInvoice')
         return data
 
@@ -257,9 +249,7 @@ class PurchaseInvoices(JSONQueryView):
             prepare_invoice_data(data,'PurchaseInvoice')
             return data
         else:
-            bussiness = ask['bussiness']
-            branch = ask['branch']
-            data = list(self.model.objects.values().filter(timestamp__range=(start,end), bussiness=bussiness, branch=branch).order_by('-timestamp'))
+            data = list(self.model.objects.values().filter(timestamp__range=(start,end)).order_by('-timestamp'))
             prepare_invoice_data(data,'PurchaseInvoice')
         return data
 
@@ -325,9 +315,7 @@ class PurchaseReturnInvoices(JSONQueryView):
             prepare_invoice_data(data,'PurchaseReturnInvoice')
             return data
         else:
-            bussiness = ask['bussiness']
-            branch = ask['branch']
-            data = list(self.model.objects.values().filter(timestamp__range=(start,end), bussiness=bussiness, branch=branch).order_by('-timestamp'))
+            data = list(self.model.objects.values().filter(timestamp__range=(start,end)).order_by('-timestamp'))
             prepare_invoice_data(data,'PurchaseReturnInvoice')
         return data
 

@@ -109,29 +109,28 @@ class CashTracker(View):
         return JsonResponse(data)
 
     def process_summary(self,request,b,e,p):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
+
         if p=='all':
-            inc = CashIncrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            dec = CashDecrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            end = Cash.objects.filter(bussiness=bussiness, branch=branch).aggregate(total=Sum('balance'))
+            inc = CashIncrement.objects.filter(timestamp__range=(b,e)).aggregate(total=Sum('amount'))
+            dec = CashDecrement.objects.filter(timestamp__range=(b,e)).aggregate(total=Sum('amount'))
+            end = Cash.objects.all().aggregate(total=Sum('balance'))
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = CashIncrement.objects.filter(timestamp__range=(e,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-                today_end_dec = CashDecrement.objects.filter(timestamp__range=(e,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
+                today_end_inc = CashIncrement.objects.filter(timestamp__range=(e,today)).aggregate(total=Sum('amount'))
+                today_end_dec = CashDecrement.objects.filter(timestamp__range=(e,today)).aggregate(total=Sum('amount'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
         else:
-            inc = CashIncrement.objects.filter(timestamp__range=(b,e),cash_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            dec = CashDecrement.objects.filter(timestamp__range=(b,e),cash_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            end = Cash.objects.filter(pk=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('balance'))
+            inc = CashIncrement.objects.filter(timestamp__range=(b,e),cash_id=p).aggregate(total=Sum('amount'))
+            dec = CashDecrement.objects.filter(timestamp__range=(b,e),cash_id=p).aggregate(total=Sum('amount'))
+            end = Cash.objects.filter(pk=p).aggregate(total=Sum('balance'))
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = CashIncrement.objects.filter(timestamp__range=(e,today),cash_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-                today_end_dec = CashDecrement.objects.filter(timestamp__range=(e,today),cash_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
+                today_end_inc = CashIncrement.objects.filter(timestamp__range=(e,today),cash_id=p).aggregate(total=Sum('amount'))
+                today_end_dec = CashDecrement.objects.filter(timestamp__range=(e,today),cash_id=p).aggregate(total=Sum('amount'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
@@ -155,33 +154,32 @@ class CashTracker(View):
         return data
 
     def process_graph(self,request,b,e,p):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
+        
         if p=='all':
-            tinc = CashIncrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            tdec = CashDecrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            inc = list(CashIncrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).order_by('-timestamp').values())
-            dec = list(CashDecrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).order_by('-timestamp').values())
-            end = Cash.objects.filter(bussiness=bussiness, branch=branch).aggregate(total=Sum('balance'))
+            tinc = CashIncrement.objects.filter(timestamp__range=(b,e)).aggregate(total=Sum('amount'))
+            tdec = CashDecrement.objects.filter(timestamp__range=(b,e)).aggregate(total=Sum('amount'))
+            inc = list(CashIncrement.objects.filter(timestamp__range=(b,e)).order_by('-timestamp').values())
+            dec = list(CashDecrement.objects.filter(timestamp__range=(b,e)).order_by('-timestamp').values())
+            end = Cash.objects.all().aggregate(total=Sum('balance'))
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = CashIncrement.objects.filter(timestamp__range=(e,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-                today_end_dec = CashDecrement.objects.filter(timestamp__range=(e,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
+                today_end_inc = CashIncrement.objects.filter(timestamp__range=(e,today)).aggregate(total=Sum('amount'))
+                today_end_dec = CashDecrement.objects.filter(timestamp__range=(e,today)).aggregate(total=Sum('amount'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
         else:
-            tinc = CashIncrement.objects.filter(timestamp__range=(b,e),cash_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            tdec = CashDecrement.objects.filter(timestamp__range=(b,e),cash_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            inc = list(CashIncrement.objects.filter(timestamp__range=(b,e),cash_id=p, bussiness=bussiness, branch=branch).order_by('-timestamp').values())
-            dec = list(CashDecrement.objects.filter(timestamp__range=(b,e),cash_id=p, bussiness=bussiness, branch=branch).order_by('-timestamp').values())
-            end = Cash.objects.filter(pk=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('balance'))
+            tinc = CashIncrement.objects.filter(timestamp__range=(b,e),cash_id=p).aggregate(total=Sum('amount'))
+            tdec = CashDecrement.objects.filter(timestamp__range=(b,e),cash_id=p).aggregate(total=Sum('amount'))
+            inc = list(CashIncrement.objects.filter(timestamp__range=(b,e),cash_id=p).order_by('-timestamp').values())
+            dec = list(CashDecrement.objects.filter(timestamp__range=(b,e),cash_id=p).order_by('-timestamp').values())
+            end = Cash.objects.filter(pk=p).aggregate(total=Sum('balance'))
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = CashIncrement.objects.filter(timestamp__range=(e,today),cash_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-                today_end_dec = CashDecrement.objects.filter(timestamp__range=(e,today),cash_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
+                today_end_inc = CashIncrement.objects.filter(timestamp__range=(e,today),cash_id=p).aggregate(total=Sum('amount'))
+                today_end_dec = CashDecrement.objects.filter(timestamp__range=(e,today),cash_id=p).aggregate(total=Sum('amount'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
@@ -196,8 +194,6 @@ class CashTracker(View):
         dinc = group_by_day(inc,'inc')
         ddec = group_by_day(dec,'dec')
         bdi = dinc
-        # for dd in ddec:
-        #     bdi.append(dd)
         bdi.extend(ddec)
         bdi.sort(key=sort_time)
         idb = historate_cash(start,bdi)
@@ -230,23 +226,22 @@ class CashSummaryTracker(View):
         return JsonResponse(data)
 
     def process_summary(self,request,b,e):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
-        prod = Cash.objects.filter(bussiness=bussiness, branch=branch)
+        
+        prod = Cash.objects.all()
         data = []
         for pro in prod:
-            inc = pro.cashincrement_set.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            purch = pro.cashdecrement_set.filter(content_type__model="cashpurchase",timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            pr = pro.cashincrement_set.filter(content_type__model="cashpurchasereturn",timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            sr = pro.cashdecrement_set.filter(content_type__model="cashsalesreturn",timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            dec = pro.cashdecrement_set.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-            sales = pro.cashincrement_set.filter(content_type__model="cashsale",timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
+            inc = pro.cashincrement_set.filter(timestamp__range=(b,e)).aggregate(total=Sum('amount'))
+            purch = pro.cashdecrement_set.filter(content_type__model="cashpurchase",timestamp__range=(b,e)).aggregate(total=Sum('amount'))
+            pr = pro.cashincrement_set.filter(content_type__model="cashpurchasereturn",timestamp__range=(b,e)).aggregate(total=Sum('amount'))
+            sr = pro.cashdecrement_set.filter(content_type__model="cashsalesreturn",timestamp__range=(b,e)).aggregate(total=Sum('amount'))
+            dec = pro.cashdecrement_set.filter(timestamp__range=(b,e)).aggregate(total=Sum('amount'))
+            sales = pro.cashincrement_set.filter(content_type__model="cashsale",timestamp__range=(b,e)).aggregate(total=Sum('amount'))
             end = pro.balance
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = pro.cashincrement_set.filter(timestamp__range=(b,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
-                today_end_dec = pro.cashdecrement_set.filter(timestamp__range=(b,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('amount'))
+                today_end_inc = pro.cashincrement_set.filter(timestamp__range=(b,today)).aggregate(total=Sum('amount'))
+                today_end_dec = pro.cashdecrement_set.filter(timestamp__range=(b,today)).aggregate(total=Sum('amount'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
@@ -273,5 +268,5 @@ class CashSummaryTracker(View):
                 'sales':sales['total'],
                 'end':end
             })
-        end = Cash.objects.filter(bussiness=bussiness, branch=branch).aggregate(total=Sum('balance'))
+        end = Cash.objects.all().aggregate(total=Sum('balance'))
         return data

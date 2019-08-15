@@ -87,10 +87,8 @@ class Productt(JSONQueryView):
     model = Product
 
     def make_query(self,ask=None):
-        bussiness = ask['bussiness']
-        branch = ask['branch']
         try:
-            product =  list(self.model.objects.filter(pk=self.kwargs['pk'], bussiness=bussiness, branch=branch).values())[0]
+            product =  list(self.model.objects.filter(pk=self.kwargs['pk']).values())[0]
             try:
                 product["category_id"] = Category.objects.get(pk=product["category_id"]).name
             except ObjectDoesNotExist:
@@ -122,9 +120,7 @@ class InventoryIncrementsPurchase(JSONQueryView):
     model = InventoryIncrement
 
     def make_query(self,ask=None):
-        bussiness = ask['bussiness']
-        branch = ask['branch']
-        changes = list(self.model.objects.filter(content_type__model__in=["creditpurchase","inventorypurchase"], bussiness=bussiness, branch=branch).order_by('-timestamp').values())
+        changes = list(self.model.objects.filter(content_type__model__in=["creditpurchase","inventorypurchase"]).order_by('-timestamp').values())
         prepare_changes_data(changes)
         return changes
 #query increment salesreturns
@@ -132,9 +128,7 @@ class InventoryIncrementsSR(JSONQueryView):
     model = InventoryIncrement
 
     def make_query(self,ask=None):
-        bussiness = ask['bussiness']
-        branch = ask['branch']
-        changes = list(self.model.objects.filter(content_type__model__in=["creditsalesreturn","inventorysalesreturn"], bussiness=bussiness, branch=branch).order_by('-timestamp').values())
+        changes = list(self.model.objects.filter(content_type__model__in=["creditsalesreturn","inventorysalesreturn"]).order_by('-timestamp').values())
         prepare_changes_data(changes)
         return changes
 #query increment others
@@ -142,9 +136,7 @@ class InventoryIncrementsOT(JSONQueryView):
     model = InventoryIncrement
 
     def make_query(self,ask=None):
-        bussiness = ask['bussiness']
-        branch = ask['branch']
-        changes = list(self.model.objects.exclude(content_type__model__in=["creditsalesreturn","inventorysalesreturn","creditpurchase","inventorypurchase"]).filter(bussiness=bussiness, branch=branch).order_by('-timestamp').values())
+        changes = list(self.model.objects.exclude(content_type__model__in=["creditsalesreturn","inventorysalesreturn","creditpurchase","inventorypurchase"]).all().order_by('-timestamp').values())
         prepare_changes_data(changes)
         return changes
 #Views for decrement model
@@ -167,9 +159,7 @@ class InventoryDecrementsSale(JSONQueryView):
     model = InventoryDecrement
 
     def make_query(self,ask=None):
-        bussiness = ask['bussiness']
-        branch = ask['branch']
-        changes = list(self.model.objects.filter(content_type__model__in=["creditsale","inventorysale"], bussiness=bussiness, branch=branch).order_by('-timestamp').values())
+        changes = list(self.model.objects.filter(content_type__model__in=["creditsale","inventorysale"]).order_by('-timestamp').values())
         prepare_changes_data(changes)
         return changes
 #query increment salesreturns
@@ -177,9 +167,7 @@ class InventoryDecrementsPR(JSONQueryView):
     model = InventoryDecrement
 
     def make_query(self,ask=None):
-        bussiness = ask['bussiness']
-        branch = ask['branch']
-        changes = list(self.model.objects.filter(content_type__model__in=["creditpurchasereturn","inventorypurchasereturn"], bussiness=bussiness, branch=branch).order_by('-timestamp').values())
+        changes = list(self.model.objects.filter(content_type__model__in=["creditpurchasereturn","inventorypurchasereturn"]).order_by('-timestamp').values())
         prepare_changes_data(changes)
         return changes
 #query increment others
@@ -187,9 +175,7 @@ class InventoryDecrementsOT(JSONQueryView):
     model = InventoryDecrement
 
     def make_query(self,ask=None):
-        bussiness = ask['bussiness']
-        branch = ask['branch']
-        changes = list(self.model.objects.exclude(content_type__model__in=["creditpurchasereturn","inventorypurchasereturn","creditsale","inventorysale"]).filter(bussiness=bussiness, branch=branch).order_by('-timestamp').values())
+        changes = list(self.model.objects.exclude(content_type__model__in=["creditpurchasereturn","inventorypurchasereturn","creditsale","inventorysale"]).all().order_by('-timestamp').values())
         prepare_changes_data(changes)
         return changes
 
@@ -233,29 +219,28 @@ class InventoryTracker(View):
         return JsonResponse(data)
 
     def process_summary(self,request,b,e,p):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
+        
         if p=='all':
-            inc = InventoryIncrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-            dec = InventoryDecrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+            inc = InventoryIncrement.objects.filter(timestamp__range=(b,e)).aggregate(total=Sum('quantity'))
+            dec = InventoryDecrement.objects.filter(timestamp__range=(b,e)).aggregate(total=Sum('quantity'))
             end = Product.objects.filter().aggregate(total=Sum('quantity'))
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today)).aggregate(total=Sum('quantity'))
+                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today)).aggregate(total=Sum('quantity'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
         else:
-            inc = InventoryIncrement.objects.filter(timestamp__range=(b,e),inventory_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-            dec = InventoryDecrement.objects.filter(timestamp__range=(b,e),inventory_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+            inc = InventoryIncrement.objects.filter(timestamp__range=(b,e),inventory_id=p).aggregate(total=Sum('quantity'))
+            dec = InventoryDecrement.objects.filter(timestamp__range=(b,e),inventory_id=p).aggregate(total=Sum('quantity'))
             end = Product.objects.filter(pk=p).aggregate(total=Sum('quantity'))
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today),inventory_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today),inventory_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today),inventory_id=p).aggregate(total=Sum('quantity'))
+                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today),inventory_id=p).aggregate(total=Sum('quantity'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
@@ -279,33 +264,32 @@ class InventoryTracker(View):
         return data
 
     def process_graph(self,request,b,e,p):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
+        
         if p=='all':
-            tinc = InventoryIncrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-            tdec = InventoryDecrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-            inc = list(InventoryIncrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).order_by('-timestamp').values())
-            dec = list(InventoryDecrement.objects.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).order_by('-timestamp').values())
-            end = Product.objects.filter(bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+            tinc = InventoryIncrement.objects.filter(timestamp__range=(b,e)).aggregate(total=Sum('quantity'))
+            tdec = InventoryDecrement.objects.filter(timestamp__range=(b,e)).aggregate(total=Sum('quantity'))
+            inc = list(InventoryIncrement.objects.filter(timestamp__range=(b,e)).order_by('-timestamp').values())
+            dec = list(InventoryDecrement.objects.filter(timestamp__range=(b,e)).order_by('-timestamp').values())
+            end = Product.objects.all().aggregate(total=Sum('quantity'))
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today)).aggregate(total=Sum('quantity'))
+                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today)).aggregate(total=Sum('quantity'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
         else:
-            tinc = InventoryIncrement.objects.filter(timestamp__range=(b,e),inventory_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-            tdec = InventoryDecrement.objects.filter(timestamp__range=(b,e),inventory_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-            inc = list(InventoryIncrement.objects.filter(timestamp__range=(b,e),inventory_id=p, bussiness=bussiness, branch=branch).order_by('-timestamp').values())
-            dec = list(InventoryDecrement.objects.filter(timestamp__range=(b,e),inventory_id=p, bussiness=bussiness, branch=branch).order_by('-timestamp').values())
-            end = Product.objects.filter(pk=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+            tinc = InventoryIncrement.objects.filter(timestamp__range=(b,e),inventory_id=p).aggregate(total=Sum('quantity'))
+            tdec = InventoryDecrement.objects.filter(timestamp__range=(b,e),inventory_id=p).aggregate(total=Sum('quantity'))
+            inc = list(InventoryIncrement.objects.filter(timestamp__range=(b,e),inventory_id=p).order_by('-timestamp').values())
+            dec = list(InventoryDecrement.objects.filter(timestamp__range=(b,e),inventory_id=p).order_by('-timestamp').values())
+            end = Product.objects.filter(pk=p).aggregate(total=Sum('quantity'))
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today),inventory_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today),inventory_id=p, bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today),inventory_id=p).aggregate(total=Sum('quantity'))
+                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today),inventory_id=p).aggregate(total=Sum('quantity'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
@@ -354,23 +338,22 @@ class InventorySummaryTracker(View):
         return JsonResponse(data)
 
     def process_summary(self,request,b,e):
-        bussiness = request.session['BB']['BUSSINESS']
-        branch = request.session['BB']['BRANCH']
-        prod = Product.objects.filter(bussiness=bussiness, branch=branch)
+        
+        prod = Product.objects.all()
         data = []
         for pro in prod:
-            inc = pro.inventoryincrement_set.filter(timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-            purch = pro.inventoryincrement_set.filter(content_type__model__in=["cashpurchase","creditpurchase"],timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-            pr = pro.inventorydecrement_set.filter(content_type__model__in=["cashpurchasereturn","creditpurchasereturn"],timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-            sr = pro.inventoryincrement_set.filter(content_type__model__in=["cashsalesreturn","creditsalesreturn"],timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+            inc = pro.inventoryincrement_set.filter(timestamp__range=(b,e)).aggregate(total=Sum('quantity'))
+            purch = pro.inventoryincrement_set.filter(content_type__model__in=["cashpurchase","creditpurchase"],timestamp__range=(b,e)).aggregate(total=Sum('quantity'))
+            pr = pro.inventorydecrement_set.filter(content_type__model__in=["cashpurchasereturn","creditpurchasereturn"],timestamp__range=(b,e)).aggregate(total=Sum('quantity'))
+            sr = pro.inventoryincrement_set.filter(content_type__model__in=["cashsalesreturn","creditsalesreturn"],timestamp__range=(b,e)).aggregate(total=Sum('quantity'))
             dec = pro.inventorydecrement_set.filter(timestamp__range=(b,e)).aggregate(total=Sum('quantity'))
-            sales = pro.inventorydecrement_set.filter(content_type__model__in=["cashsale","creditsale"],timestamp__range=(b,e), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+            sales = pro.inventorydecrement_set.filter(content_type__model__in=["cashsale","creditsale"],timestamp__range=(b,e)).aggregate(total=Sum('quantity'))
             end = pro.quantity
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = pro.inventoryincrement_set.filter(timestamp__range=(b,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
-                today_end_dec = pro.inventorydecrement_set.filter(timestamp__range=(b,today), bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+                today_end_inc = pro.inventoryincrement_set.filter(timestamp__range=(b,today)).aggregate(total=Sum('quantity'))
+                today_end_dec = pro.inventorydecrement_set.filter(timestamp__range=(b,today)).aggregate(total=Sum('quantity'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
@@ -397,5 +380,5 @@ class InventorySummaryTracker(View):
                 'sales':sales['total'],
                 'end':end
             })
-        end = Product.objects.filter(bussiness=bussiness, branch=branch).aggregate(total=Sum('quantity'))
+        end = Product.objects.all().aggregate(total=Sum('quantity'))
         return data
