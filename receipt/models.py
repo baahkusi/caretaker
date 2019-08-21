@@ -2,8 +2,6 @@ from django.db import models
 from customer.models import Customer
 from supplier.models import Supplier
 from django.contrib.auth.models import User
-from discount.models import Discount
-from tax.models import Tax
 from cash.models import Cash
  
 
@@ -15,9 +13,7 @@ class Receipt(models.Model):
     )
     number = models.CharField(max_length=256)
     employee = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
-    discount =  models.ManyToManyField(Discount,blank=True)
     status = models.CharField(max_length=32,choices=STATUS,default='007',blank=True)
-    tax = models.ManyToManyField(Tax,blank=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True)
     last_modified = models.DateTimeField(auto_now=True,null=True)
     cash = models.ForeignKey(Cash,on_delete=models.SET_NULL,null=True,blank=True)

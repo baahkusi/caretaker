@@ -33,8 +33,6 @@ ALLOWED_HOSTS = ['care-taker.herokuapp.com','127.0.0.1', 'localhost']
 INSTALLED_APPS = [
     'access.apps.AccessConfig',
     'logger.apps.LoggerConfig',
-    'tax.apps.TaxConfig',
-    'discount.apps.DiscountConfig',
     'invoice.apps.InvoiceConfig',
     'receipt.apps.ReceiptConfig',
     'cash.apps.CashConfig',

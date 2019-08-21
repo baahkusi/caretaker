@@ -76,6 +76,3 @@ def prepare_receipt_data(data, receipt):
         dat['amount'] = amount['amount']
 
         dat['payment'] = dat['system']+" ~ "+dat['currency']
-
-        dat['tax'] = 0
-        dat['discount'] = 0

@@ -89,6 +89,3 @@ def prepare_invoice_data(data, invoice):
             except ObjectDoesNotExist:
                 pass
         dat['amount'] = amount['amount']
-
-        dat['tax'] = 0
-        dat['discount'] = 0

@@ -85,24 +85,16 @@ APPS = [
             {"id": "supplier","value": "SUPPLIER MANAGEMENT","url": "/supplier","app":"supplier",},
         ]
     },
-    # {
-    #     "id": 10,
-    #     "icon": "square",
-    #     "value": "DISCOUNT MANAGEMENT",
-    #     "app":"discount",
-    #     "url":"/discount"
-    #     # "data":[
-    #     #     {"id":"tax","value":"TAX MANAGEMENT","app":"tax","url":"/tax"},
-    #     #     {"id":"discount","value":"DISCOUNT MANAGEMENT","app":"discount","url":"/discount"}
-    #     # ]
-    # },
-    # {
-    #     "id": 11,
-    #     "icon": "book",
-    #     "value": "ACCOUNTING",
-    #     "url": "",
-    #     "app":"accounting",
-    # },
+    {
+        "id": 11,
+        "icon": "book",
+        "value": "ACCOUNTING",
+        "app":"accounting",
+        "data":[
+            {"id": "expenses","value": "EXPENSE TRACKER","url": "/expenses","app":"expenses",},
+            {"id": "income","value": "INCOME STATEMENT","url": "/income","app":"income",},
+        ]
+    },
     {
         "id": 12,
         "icon": "user",

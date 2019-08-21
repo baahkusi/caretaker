@@ -29,8 +29,6 @@ urlpatterns = [
     url(r'^supplier/',include('supplier.urls')),
     url(r'^customer/',include('customer.urls')),
     url(r'^access/',include('access.urls')),
-    url(r'^tax/',include('tax.urls')),
-    url(r'^discount/',include('discount.urls')),
     url(r'^stats/',include('stats.urls')),
     url(r'^logger/',include('logger.urls')),
 ]

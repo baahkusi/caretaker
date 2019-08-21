@@ -2,8 +2,6 @@ from django.db import models
 from customer.models import Customer
 from supplier.models import Supplier
 from django.contrib.auth.models import User
-from discount.models import Discount
-from tax.models import Tax
  
 
 class Invoice(models.Model):
@@ -16,8 +14,6 @@ class Invoice(models.Model):
         ('000','Voided'),
     )
     number = models.CharField(max_length=256)
-    discount =  models.ManyToManyField(Discount,blank=True)
-    tax = models.ManyToManyField(Tax,blank=True)
     employee = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     status = models.CharField(max_length=32,choices=STATUS,default='419',blank=True)
     settled = models.DecimalField(max_digits=20, decimal_places=3,blank=True,default=0)
