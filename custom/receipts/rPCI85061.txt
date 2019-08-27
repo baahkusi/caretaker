@@ -1,0 +1,20 @@
+MANGO & PEAR ENTERPRISE LTD DEALERS IN FRUITS
+TEL : 0243337978 / 0245836125
+LOCATION : KNUST, KUMASI
+------------------------------------------------
+           Purchase Invoice #PCI85061                      ==========================           
+CUSTOMER NAME  :  mPharma
+CASHIER NAME   :  ME AM ME
+ISSUED ON      :  Tue Aug 27 05:02:04 PM 2019
+CURRENCY       :  GH CEDIS
+------------------------------------------------
+ITEM(S)                     QTY   SP    TOTAL   
+================================================
+Apple                       4     2.0   8.0     
+------------------------------------------------
+TOTAL AMOUNT :                          8.0
+================================================
+***********THANKS FOR YOUR PATRONAGE************
+
+            Amount is VAT INCLUSIVE             
+  Programmed by : SBKSoftwares Inc. : 0553339728

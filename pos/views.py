@@ -188,11 +188,11 @@ class DeleteCreditSalesReturn(View):
     def post(self, request, *args, **kwargs):
         try:
             pk = request.POST.get('id')
-            sl = CreditSale.objects.get(pk=pk)
+            sl = CreditSalesReturn.objects.get(pk=pk)
             
             #delete all inventory decrements
             inv_inc = sl.inventory_increment.all()[0]
-            prod = inv_dec.product
+            prod = inv_inc.product
             # remove inventory
             prod.quantity = F('quantity') - inv_inc.quantity
             prod.save()
