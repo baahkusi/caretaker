@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import generic,View
 from django.http import JsonResponse
+from django.db.models import F
 from pop.forms import (CreditPurchaseForm,CashPurchaseForm
                        ,CreditPurchaseReturnForm,CashPurchaseReturnForm)
 from custom.views import (JSONCreateView,JSONUpdateView,
