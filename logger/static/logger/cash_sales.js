@@ -151,7 +151,7 @@ var stock_sales_cash = {
                             if (result) {
                                 // webix.message("deleting sales"+id);
                                 // console.log(id.row);
-                                var url = "";
+                                var url = "/pos/apiv1/delete/cashsale";
                                 webix.ajax().post(url,{'id':id.row},function(t,r){
                                     var ms = r.json();
                                     if (ms.status) {

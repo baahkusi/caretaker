@@ -96,13 +96,6 @@ APPS = [
         ]
     },
     {
-        "id": 12,
-        "icon": "user",
-        "value": "USER MANAGEMENT",
-        "url": "/access/user",
-        "app":"user",
-    },
-    {
         "id": 13,
         "icon": "edit",
         "value": "LOGS",
@@ -114,11 +107,18 @@ APPS = [
             {"id": "pr_logger","value": "PURCHASES RETURNS LOGGER","url": "/logger/pr","app":"pr_logger",},
         ]
     },
-    # {
-    #     "id": 14,
-    #     "icon": "cog",
-    #     "value": "SETTINGS",
-    #     "url": "",
-    #     "app":"settings",
-    # }
+    {
+        "id": 12,
+        "icon": "user",
+        "value": "USER MANAGEMENT",
+        "url": "/access/user",
+        "app":"user",
+    },
+    {
+        "id": 14,
+        "icon": "cog",
+        "value": "SETTINGS",
+        "url": "/settings",
+        "app":"settings",
+    }
 ]

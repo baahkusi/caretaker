@@ -1,3 +1,4 @@
+order_count = 0;
 function mySubmit(){
 	if ($$("get_product_form").validate()){ //validate form
 		var fparam = $$("get_product_form").getValues();
@@ -273,18 +274,33 @@ var get_product = {
 				options:[]
 			},
 			{},
-			// {
-			// 	view:"button",
-			// 	label:"Create New Customer",
-			// 	type:"iconButton",
-			// 	icon:"user-plus",
-			// 	autowidth:true,
-			// 	click:function(){
-			// 		$$("customer_window").getBody().clear();
-			// 		$$("customer_window").getBody().focus();
-			// 		$$("customer_window").show();
-			// 	}
-			// }
+			{
+				gravity:1,
+				id:"get_on_hold",
+				width:350,
+				view:"combo",
+				placeholder:"Orders On Hold Here ...",
+				options:[],
+				on:{
+					onChange: function(){
+						if ($$("get_on_hold").getValue()=="") {
+	                        // webix.message("I don't care about this change");
+	                    }else{
+	                        // webix.message("Change has come");
+	                        id = $$("get_on_hold").getValue();
+	                        
+	                        $$("get_on_hold").setValue("");
+							info = $$('get_on_hold').getPopup().getList().getItem(id);
+							webix.message('Resuming order '+info.id);
+							$$("get_customer").setValue(info.customer);
+							$$('get_payment_system').setValue(info.payment); // look into it
+							$$("pos_datatable").parse(info.data);
+							$$("get_product").focus();
+							$$('get_on_hold').getPopup().getList().remove(id);
+					}
+				}
+			}
+		}
 
 		]
 	}

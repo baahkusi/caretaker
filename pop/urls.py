@@ -3,6 +3,13 @@ from . import views
 
 app_name = "pop"
 
+dpatterns = [
+    url(r'^cashpurchase$',views.DeleteCashPurchase.as_view()),
+    url(r'^cashpurchasereturn$',views.DeleteCashPurchaseReturn.as_view()),
+    url(r'^creditpurchase$',views.DeleteCreditPurchase.as_view()),
+    url(r'^creditpurchasereturn$',views.DeleteCreditPurchaseReturn.as_view()),
+]
+
 upatterns = [
     url(r'^creditpurchase/(?P<pk>[0-9]+)$',views.UpdateCreditPurchase.as_view(),name='update-creditpurchase'),
     url(r'^cashpurchase/(?P<pk>[0-9]+)$',views.UpdateCashPurchase.as_view(),name='update-cashpurchase'),
@@ -30,7 +37,7 @@ hpatterns = [
 
 apiv1 = [
     url(r'^update/',include(upatterns)),
-    # url(r'^delete/',include(dpatterns)),
+    url(r'^delete/',include(dpatterns)),
     url(r'^create/',include(cpatterns)),
     url(r'^query/',include(qpatterns)),
     url(r'^helpers/',include(hpatterns)),

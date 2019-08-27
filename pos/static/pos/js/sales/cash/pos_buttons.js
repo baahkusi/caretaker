@@ -108,6 +108,38 @@ function save_cash_sales(print_receipt){
 }
 }
 
+function clear(){
+    $$("pos_datatable").clearAll();
+    $$("get_product").focus();
+    $$("get_product").setValue("");
+}
+
+function put_sales_on_hold(){
+    
+    data = $$("pos_datatable").serialize();
+    
+    if (data.length===0) {
+        webix.message("No entry made yet","error");
+    }else {
+        webix.message('Putting order '+ order_count +' on hold', 'info');
+        payment = $$('get_payment_system').getValue();
+        customer = $$("get_customer").getValue();
+        $$("get_customer").setValue("");
+        info = {
+            id:order_count,
+            value:"Order "+order_count,
+            data:data,
+            payment:payment,
+            customer:customer
+        }
+        $$('get_on_hold').getPopup().getList().add(info);
+        order_count++;
+        clear();
+    }
+    
+
+}
+
 var pos_buttons = {
     padding:30,
     cols:[
@@ -119,9 +151,7 @@ var pos_buttons = {
             icon:"times",
             autowidth:true,
             click:function () {
-                $$("pos_datatable").clearAll();
-                $$("get_product").focus();
-                $$("get_product").setValue("") ;
+                clear();
             }
         },
         {
@@ -132,7 +162,7 @@ var pos_buttons = {
             icon:"external-link",
             autowidth:true,
             click:function () {
-                webix.message("Put current sales on hold and process another one with intention to come back to it");
+                put_sales_on_hold();
             }
         },
         {},

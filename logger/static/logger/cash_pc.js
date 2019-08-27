@@ -147,7 +147,7 @@ var stock_purchases_cash = {
                             if (result) {
                                 // webix.message("deleting sales"+id);
                                 // console.log(id.row);
-                                var url = "";
+                                var url = "/pop/apiv1/delete/cashpurchase";
                                 webix.ajax().post(url,{'id':id.row},function(t,r){
                                     var ms = r.json();
                                     if (ms.status) {

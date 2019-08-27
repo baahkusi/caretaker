@@ -1,4 +1,4 @@
-
+var on_hold = [];
 var pos_datatable = {
     padding:20,
     cols:[
