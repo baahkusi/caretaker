@@ -1,4 +1,4 @@
-order_count = 0;
+order_count = 1;
 function mySubmit(){
 	if ($$("get_product_form").validate()){ //validate form
 		var fparam = $$("get_product_form").getValues();
@@ -291,7 +291,7 @@ var get_product = {
 	                        
 	                        $$("get_on_hold").setValue("");
 							info = $$('get_on_hold').getPopup().getList().getItem(id);
-							webix.message('Resuming order '+info.id);
+							webix.message(`Resuming order ${info['id']}`,"debug");
 							$$("get_customer").setValue(info.customer);
 							$$('get_payment_system').setValue(info.payment); // look into it
 							$$("pos_datatable").parse(info.data);

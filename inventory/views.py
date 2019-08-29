@@ -33,7 +33,7 @@ class ProdIdFace(JSONQueryView):
 
     def make_query(self,ask=None):
         products = super().make_query(ask)
-        data = []
+        data = [{'id':'all','value':'all'}]
         for product in products:
             data.append({'id':product['id'],'value':product['name']})
         return data
@@ -233,14 +233,14 @@ class InventoryTracker(View):
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
         else:
-            inc = InventoryIncrement.objects.filter(timestamp__range=(b,e),inventory_id=p).aggregate(total=Sum('quantity'))
-            dec = InventoryDecrement.objects.filter(timestamp__range=(b,e),inventory_id=p).aggregate(total=Sum('quantity'))
+            inc = InventoryIncrement.objects.filter(timestamp__range=(b,e),product_id=p).aggregate(total=Sum('quantity'))
+            dec = InventoryDecrement.objects.filter(timestamp__range=(b,e),product_id=p).aggregate(total=Sum('quantity'))
             end = Product.objects.filter(pk=p).aggregate(total=Sum('quantity'))
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today),inventory_id=p).aggregate(total=Sum('quantity'))
-                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today),inventory_id=p).aggregate(total=Sum('quantity'))
+                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today),product_id=p).aggregate(total=Sum('quantity'))
+                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today),product_id=p).aggregate(total=Sum('quantity'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
@@ -280,16 +280,16 @@ class InventoryTracker(View):
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}
         else:
-            tinc = InventoryIncrement.objects.filter(timestamp__range=(b,e),inventory_id=p).aggregate(total=Sum('quantity'))
-            tdec = InventoryDecrement.objects.filter(timestamp__range=(b,e),inventory_id=p).aggregate(total=Sum('quantity'))
-            inc = list(InventoryIncrement.objects.filter(timestamp__range=(b,e),inventory_id=p).order_by('-timestamp').values())
-            dec = list(InventoryDecrement.objects.filter(timestamp__range=(b,e),inventory_id=p).order_by('-timestamp').values())
+            tinc = InventoryIncrement.objects.filter(timestamp__range=(b,e),product_id=p).aggregate(total=Sum('quantity'))
+            tdec = InventoryDecrement.objects.filter(timestamp__range=(b,e),product_id=p).aggregate(total=Sum('quantity'))
+            inc = list(InventoryIncrement.objects.filter(timestamp__range=(b,e),product_id=p).order_by('-timestamp').values())
+            dec = list(InventoryDecrement.objects.filter(timestamp__range=(b,e),product_id=p).order_by('-timestamp').values())
             end = Product.objects.filter(pk=p).aggregate(total=Sum('quantity'))
             today = str(datetime.datetime.today().date())
             if today > e:
                 today = str((datetime.datetime.today()+datetime.timedelta(days=1)).date())
-                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today),inventory_id=p).aggregate(total=Sum('quantity'))
-                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today),inventory_id=p).aggregate(total=Sum('quantity'))
+                today_end_inc = InventoryIncrement.objects.filter(timestamp__range=(e,today),product_id=p).aggregate(total=Sum('quantity'))
+                today_end_dec = InventoryDecrement.objects.filter(timestamp__range=(e,today),product_id=p).aggregate(total=Sum('quantity'))
             else:
                 today_end_inc = {'total':None}
                 today_end_dec = {'total':None}

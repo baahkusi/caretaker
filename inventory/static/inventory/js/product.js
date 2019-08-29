@@ -351,7 +351,7 @@ var product_datatable = {
             select:"row",
             columns:[
                 {id:"id", header:"#",hidden:false},
-                {id:"name", header:"Product",sort:"text",fillspace:2},
+                {id:"name",header:[ "Product",{content:"textFilter"}],sort:"text",fillspace:2},
                 {id:"cp", header:"Unit C.P.",sort:"int"},
                 {id:"sp", header:"Unit S.P.",sort:"int"},
                 {id:"quantity", header:" Qty",sort:"int"},

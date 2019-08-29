@@ -121,7 +121,7 @@ function put_sales_on_hold(){
     if (data.length===0) {
         webix.message("No entry made yet","error");
     }else {
-        webix.message('Putting order '+ order_count +' on hold', 'info');
+        webix.message('Putting order '+ order_count +' on hold', "debug");
         payment = $$('get_payment_system').getValue();
         customer = $$("get_customer").getValue();
         $$("get_customer").setValue("");

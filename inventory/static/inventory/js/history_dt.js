@@ -61,16 +61,16 @@ var inventory_history_dt = {
                         width:300,
                         view:"datepicker",
                         stringResult:true,
-                        placeholder:"from",
-                        label:"<b>start date:</b>",
+                        placeholder:"Start Date",
+                        // label:"<b>start date:</b>",
                         id:"from_date_dt",
                     },
                     {
                         width:300,
                         view:"datepicker",
                         stringResult:true,
-                        placeholder:"to",
-                        label:"<b>end date:</b>",
+                        placeholder:"End Date",
+                        // label:"<b>end date:</b>",
                         id:"to_date_dt"
                     },{},
                     {

@@ -104,7 +104,7 @@ var inv_hist_dt = {
             view:"datatable",
             columns:[
                 {id:"day",header:["Day (mm/dd/yyyy)"],fillspace:true,format:webix.i18n.dateFormatStr},
-                {id:"stock", header:" Stock On Hand",sort:"int",fillspace:true},
+                {id:"quantity", header:" Stock On Hand",sort:"int",fillspace:true},
             ]
         }
     ]
@@ -113,15 +113,16 @@ var inv_hist_dt = {
 var chart = {
    view:"chart",
    id:"chart",
-   type:"line",
-   value:"#stock#",
-   preset:'diamond',
+   type:"area",
+   value:"#quantity#",
+   alpha:0.5,
+   color:'teal',
     item:{
             borderColor: "#ffffff",
             color: "#2b7100",
         },
     tooltip:{
-            template:"#stock#"
+            template:"#quantity#"
         },
     line:{
             color:"#8ecf03",
@@ -235,16 +236,16 @@ var inventory_history = {
                         width:300,
                         view:"datepicker",
                         stringResult:true,
-                        placeholder:"from",
-                        label:"<b>start date:</b>",
+                        placeholder:"Start Date",
+                        // label:"<b>start date:</b>",
                         id:"from_date",
                     },
                     {
                         width:300,
                         view:"datepicker",
                         stringResult:true,
-                        placeholder:"to",
-                        label:"<b>end date:</b>",
+                        placeholder:"End Date",
+                        // label:"<b>end date:</b>",
                         id:"to_date"
                     },
                     {
@@ -298,7 +299,6 @@ var inventory_history = {
                         }
                     },
                     {
-                        width:400,
                         id:"powerview",
                         placeholder:"select a product or leave empty to for all Product",
                         view:"combo",

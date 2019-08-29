@@ -42,13 +42,6 @@ APPS = [
     	]
     },
     {
-        "id": 5,
-        "icon": "cubes",
-        "value": "STOCK MANAGEMENT",
-        "url": "/inventory",
-        "app":"inventory",
-    },
-    {
         "id": 6,
         "icon": "pie-chart",
         "value": "REPORTS",
@@ -57,13 +50,6 @@ APPS = [
             {"id": "statsSales","value": "SALES REPORTS","url": "/stats/sales","app":"statsSales",},
             {"id": "statsPurch","value": "PURCHASES REPORTS","url": "/stats/purchases","app":"statsPurch",},
         ]
-    },
-    {
-        "id": 7,
-        "icon": "money",
-        "value": "CASH MANAGEMENT",
-        "url": "/cash",
-        "app":"cash",
     },
     {
         "id": 8,
@@ -106,6 +92,20 @@ APPS = [
             {"id": "pc_logger","value": "PURCHASES LOGGER","url": "/logger/pc","app":"pc_logger",},
             {"id": "pr_logger","value": "PURCHASES RETURNS LOGGER","url": "/logger/pr","app":"pr_logger",},
         ]
+    },
+    {
+        "id": 5,
+        "icon": "cubes",
+        "value": "STOCK MANAGEMENT",
+        "url": "/inventory",
+        "app":"inventory",
+    },
+    {
+        "id": 7,
+        "icon": "money",
+        "value": "CASH MANAGEMENT",
+        "url": "/cash",
+        "app":"cash",
     },
     {
         "id": 12,
