@@ -33,7 +33,7 @@ class ProdIdFace(JSONQueryView):
 
     def make_query(self,ask=None):
         products = super().make_query(ask)
-        data = [{'id':'all','value':'all'}]
+        data = []
         for product in products:
             data.append({'id':product['id'],'value':product['name']})
         return data

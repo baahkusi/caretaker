@@ -48,7 +48,7 @@ class Change(models.Model):
         abstract = True
 
 class InventoryIncrement(Change):
-    pass
+    comment = models.CharField(max_length=256, default="Increase")
 
 class InventoryDecrement(Change):
-    pass
+    comment = models.CharField(max_length=256, default="Decrease")

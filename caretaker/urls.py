@@ -31,4 +31,6 @@ urlpatterns = [
     url(r'^access/',include('access.urls')),
     url(r'^stats/',include('stats.urls')),
     url(r'^logger/',include('logger.urls')),
+    url(r'^accounting/',include('accounting.urls')),
+    url(r'^settings/',include('settings.urls')),
 ]

@@ -77,8 +77,8 @@ APPS = [
         "value": "ACCOUNTING",
         "app":"accounting",
         "data":[
-            {"id": "expenses","value": "EXPENSE TRACKER","url": "/expenses","app":"expenses",},
-            {"id": "income","value": "INCOME STATEMENT","url": "/income","app":"income",},
+            {"id": "expenses","value": "EXPENSE TRACKER","url": "/accounting/expenses","app":"expenses",},
+            {"id": "income","value": "INCOME STATEMENT","url": "/accounting/income","app":"income",},
         ]
     },
     {

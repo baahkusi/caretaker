@@ -16,7 +16,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
+# Quick-start E TRACKER
+#INCOME development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -42,6 +43,8 @@ INSTALLED_APPS = [
     'pos.apps.PosConfig',
     'supplier.apps.SupplierConfig',
     'stats.apps.StatsConfig',
+    'accounting.apps.AccountingConfig',
+    'settings.apps.SettingsConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
