@@ -1,0 +1,8 @@
+
+[2019-12-01 14:24:19] Traceback (most recent call last):
+  File "start.py", line 20, in <module>
+    open_cef()
+  File "start.py", line 11, in open_cef
+    cef.createBrowserSync(url='http://127.0.0.1:8000', window_title='Welcome to RxPoint')
+AttributeError: module 'cefpython3.cefpython_py37' has no attribute 'createBrowserSync'
+

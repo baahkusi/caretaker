@@ -69,7 +69,7 @@ var inv_inc_dt = {
                 {id:"id", header:"",hidden:true},
                 {id:"day",header:["Day (mm/dd/yyyy)",{ content:"textFilter" }],fillspace:3,format:webix.i18n.dateFormatStr},
                 {id:"time", header:["Time",""]},
-                {id:"amount", header:" Amount",footer:{content:"summColumn"},sort:"int",format:webix.i18n.priceFormat},
+                {id:"amount", header:" Amount",footer:{content:"summColumn"},sort:"int"},
                 {id:"cash_id", header:["Payment System",{content:"selectFilter"}],sort:"text",fillspace:3},
                 {id:"comment", header:["Reason",{content:"selectFilter"}],fillspace:2},
             ]
@@ -88,7 +88,7 @@ var inv_dec_dt = {
                 {id:"id", header:"",hidden:true},
                 {id:"day",header:["Day (mm/dd/yyyy)",{ content:"textFilter" }],fillspace:3,format:webix.i18n.dateFormatStr},
                 {id:"time", header:["Time",""]},
-                {id:"amount", header:" Amount",footer:{content:"summColumn"},sort:"int",format:webix.i18n.priceFormat},
+                {id:"amount", header:" Amount",footer:{content:"summColumn"},sort:"int"},
                 {id:"cash_id", header:["Payment System",{content:"selectFilter"}],sort:"text",fillspace:3},
                 {id:"comment", header:["Reason",{content:"selectFilter"}],fillspace:2},
             ]

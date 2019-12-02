@@ -173,8 +173,8 @@ var all_invoice_dt = {
     columns:[
         {id:"product_name", header:"Item / Product",fillspace:true,footer:"Sub Total :"},
         {id:"quantity", header:"Quantity",fillspace:true,editor:"text"},
-        {id:"sp", header:"Unit Price",fillspace:true,format:webix.i18n.priceFormat},
-        {id:"amt", header:["Amount"],math:"[$r,sp]*[$r,quantity]",footer:{content:"summColumn"},sort:"int",fillspace:true,format:webix.i18n.priceFormat},
+        {id:"sp", header:"Unit Price",fillspace:true},
+        {id:"amt", header:["Amount"],math:"[$r,sp]*[$r,quantity]",footer:{content:"summColumn"},sort:"int",fillspace:true},
     ],
     on:{
         onBeforLoad:function(){
@@ -220,9 +220,9 @@ var purchases_invoice = {
           {id:"supplier_name", header:["Supplier",{content:"selectFilter"}],sort:"text",fillspace:true},
           {id:"employee", header:["User",{content:"selectFilter"}],sort:"text",fillspace:true},
           {id:"stati", header:["Status",{content:"selectFilter"}],sort:"text",fillspace:true},
-          {id:"amount", header:["Amount",{content:"numberFilter"}],sort:"text",format:webix.i18n.priceFormat,footer:{content:"summColumn"},fillspace:true},
-          {id:"settled", header:["Settled",{content:"numberFilter"}],sort:"text",format:webix.i18n.priceFormat,footer:{content:"summColumn"},fillspace:true},
-          {id:"rem", header:["Unsettled",{content:"numberFilter"}],sort:"text",format:webix.i18n.priceFormat,footer:{content:"summColumn"},fillspace:true,math:"[$r,amount]-[$r,settled]"},
+          {id:"amount", header:["Amount",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true},
+          {id:"settled", header:["Settled",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true},
+          {id:"rem", header:["Unsettled",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true,math:"[$r,amount]-[$r,settled]"},
       ],
       on:{
           onBeforLoad:function(){
@@ -344,7 +344,7 @@ var purchases_return_invoice = {
           {id:"number", header:["Invoice ID",{content:"textFilter"}],sort:"text",fillspace:true},
           {id:"supplier_name", header:["Supplier",{content:"selectFilter"}],sort:"text",fillspace:true},
           {id:"employee", header:["User",{content:"selectFilter"}],sort:"text",fillspace:true},
-          {id:"amount", header:["Amount",{content:"numberFilter"}],sort:"text",format:webix.i18n.priceFormat,footer:{content:"summColumn"},fillspace:true},
+          {id:"amount", header:["Amount",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true},
       ],
       on:{
           onBeforLoad:function(){

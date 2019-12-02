@@ -185,22 +185,22 @@ var get_product = {
 	rows:[
 		{
 		cols:[
-			{
-				gravity:3,
-				id:"get_customer",
-				view:"text",
-				placeholder:"Customer Name ...",
-				on:{
-					onEnter:function(){
-						var cute = $$("get_customer").getValue();
-						if (cute == "") {
-							webix.message("Enter Customer Name ...");
-						}else {
-							$$("get_product").focus();
-						}
-					}
-				}
-			},
+			// {
+			// 	gravity:3,
+			// 	id:"get_customer",
+			// 	view:"text",
+			// 	placeholder:"Customer Name ...",
+			// 	on:{
+			// 		onEnter:function(){
+			// 			var cute = $$("get_customer").getValue();
+			// 			if (cute == "") {
+			// 				webix.message("Enter Customer Name ...");
+			// 			}else {
+			// 				$$("get_product").focus();
+			// 			}
+			// 		}
+			// 	}
+			// },
 	        {
 				gravity:7,
 	            id:"get_product",
@@ -292,7 +292,7 @@ var get_product = {
 	                        $$("get_on_hold").setValue("");
 							info = $$('get_on_hold').getPopup().getList().getItem(id);
 							webix.message(`Resuming order ${info['id']}`,"debug");
-							$$("get_customer").setValue(info.customer);
+							// $$("get_customer").setValue(info.customer);
 							$$('get_payment_system').setValue(info.payment); // look into it
 							$$("pos_datatable").parse(info.data);
 							$$("get_product").focus();

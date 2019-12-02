@@ -1,50 +1,50 @@
-function doAll_credit(data){
-    $$("purchases_datatable_credit").clearAll();
+function doAll_cash(data){
+    $$("sales_dt_cash").clearAll();
 
-    $$("purchases_datatable_credit").parse(data);
+    $$("sales_dt_cash").parse(data);
 }
 
-function run_date_credit(){
-    if ($$("from_date_credit").getValue() =="" || $$("to_date_credit").getValue() =="" ) {
+function run_date_cash(){
+    if ($$("from_date_cash").getValue() =="" || $$("to_date_cash").getValue() =="" ) {
         webix.message("Some Date Not Provided","error");
     } else {
-        from_date = $$("from_date_credit").getValue().split(" ");
-        from_date = from_date[0];
-        to_date = new Date($$("to_date_credit").getValue());
-        to_date.setDate(to_date.getDate()+1);
-        to_date = to_date.toISOString().split("T")[0];
+        from_date_cash = $$("from_date_cash").getValue().split(" ");
+        from_date_cash = from_date_cash[0];
+        to_date_cash = new Date($$("to_date_cash").getValue());
+        to_date_cash.setDate(to_date_cash.getDate()+1);
+        to_date_cash = to_date_cash.toISOString().split("T")[0];
 
-        if (new Date(from_date)>new Date(to_date)) {
+        if (new Date(from_date_cash)>new Date(to_date_cash)) {
             webix.message("start date cannot be greater than end date","error");
-        }else if(new Date(from_date)>new Date()){
+        }else if(new Date(from_date_cash)>new Date()){
             webix.message("Start date cannot be greater than today","error");
         }else{
 
-            var dat = {b:from_date,e:to_date};
-            var url = "/logger/apiv1/helpers/credit/pr";
+            var dat = {b:from_date_cash,e:to_date_cash};
+            var url = "/logger/apiv1/helpers/cash/sales";
             webix.ajax().get(url,dat,function(txt,resp){
                 data = resp.json();
 
-                doAll_credit(data);
+                doAll_cash(data);
             });
         }
     }
 }
 
-function auto_run_date_credit(from,to){
+function auto_run_date_cash(from,to){
 
     var dat = {b:from,e:to};
-    var url = "/logger/apiv1/helpers/credit/pr";
+    var url = "/logger/apiv1/helpers/cash/sales";
     webix.ajax().get(url,dat,function(txt,resp){
         data = resp.json();
 
-        doAll_credit(data);
+        doAll_cash(data);
     });
 }
 
-var hide_show_db_credit = {
+var hide_show_db_cash = {
 	view:"dbllist",
-	id:"hide_show_db_credit",
+	id:"hide_show_db_cash",
 	width:300,
     value:"id",
 	list:{
@@ -59,9 +59,9 @@ var hide_show_db_credit = {
 			 var mode = this.config.$id === "left";
 
 			 if (mode) {
-			 	$$("purchases_datatable_credit").hideColumn(id);
+			 	$$("sales_dt_cash").hideColumn(id);
 			}else{
-				$$("purchases_datatable_credit").showColumn(id);
+				$$("sales_dt_cash").showColumn(id);
 			}
 			 this.getTopParentView().select(id, mode);
 			 return false;
@@ -77,19 +77,21 @@ var hide_show_db_credit = {
 		{id:"id",value:"#"},
 		{id:"day",value:"Day"},
 		{id:"time",value:"Time"},
+		{id:"sp",value:"Unit S.P"},
 		{id:"cp",value:"Unit C.P"},
 		{id:"quantity",value:"Qty"},
 		{id:"amount",value:"Sales Amount"},
-		{id:"supplier",value:"Supplier"},
+		{id:"cost",value:"Cost of Sales"},
+		{id:"profit",value:"Profit"},
 		{id:"product_name",value:"Product"},
         {id:"employee_id",value:"User"},
         {id:"action",value:"Action"},
 	]
 }
 
-var hide_show_wind_credit = {
+var hide_show_wind_cash = {
 	view:"window",
-	id:"hide_show_wind_credit",
+	id:"hide_show_wind_cash",
 	// width:500,
 	position:"center",
 	move:true,
@@ -101,19 +103,19 @@ var hide_show_wind_credit = {
 				type:"header",
 			},
 			{
-				view:"button", label:"Close", width:70, click:("$$('hide_show_wind_credit').hide();"),align:"right"
+				view:"button", label:"Close", width:70, click:("$$('hide_show_wind_cash').hide();"),align:"right"
 			}
 		]
 	} ,
-	body:webix.copy(hide_show_db_credit)
+	body:webix.copy(hide_show_db_cash)
 }
 
-var stock_purchases_credit = {
-    id:"purchases_credit",
+var stock_sales_cash = {
+    id: "sales_cash",
     // padding:10,
     cols:[
         {
-            id:"purchases_datatable_credit",
+            id:"sales_dt_cash",
             view:"datatable",
             footer:true,
             math:true,
@@ -122,37 +124,36 @@ var stock_purchases_credit = {
             editable:true,
             editaction:"dblclick",
             columns:[
-                {id:"id", header:"",hidden:false},
-                {id:"day",header:["Day (mm/dd/yyyy)",{ content:"textFilter" }],format:webix.i18n.dateFormatStr,fillspace:2},
-                {id:"time", header:["Time",""]},
-                {id:"product_name", header:["Product",{content:"selectFilter"}],sort:"text",fillspace:2},
-                {id:"cp", header:["Unit C.P.","GH&#8373;"],fillspace:2},
-                {id:"quantity", header:" Qty",footer:{content:"summColumn"},sort:"int"},
-                {id:"amount", header:["Amount","GH&#8373;"],math:"[$r,cp]*[$r,quantity]",footer:{content:"summColumn"},sort:"int",fillspace:3},
-                {id:"supplier_name", header:["Supplier",{content:"selectFilter"}],sort:"text",fillspace:2},
+                {id:"id", header:"#",hidden:true},
+                {id:"day",header:["Day (mm/dd/yyyy)",{ content:"textFilter" }],sort:"text",fillspace:2,format:webix.i18n.dateFormatStr},
+                {id:"time", header:["Time",{ content:"textFilter" }],sort:"text"},
+                {id:"product_name", header:["Product",{content:"selectFilter"}],sort:"text",fillspace:3},
+                {id:"category_id", header:["Category",{content:"selectFilter"}],sort:"text",fillspace:3},
+                {id:"quantity",editor:"text", header:" Qty",footer:{content:"summColumn"},sort:"int"},
+                {id:"sp",editor:"text", header:["Unit S.P.  GH&#8373;",{content:"numberFilter"}],fillspace:2},
+                {id:"amount", header:["Sales Amount  GH&#8373;",{content:"numberFilter"}],math:"[$r,sp]*[$r,quantity]",footer:{content:"summColumn"},sort:"int",fillspace:3},
                 {id:"employee_id", header:["User",{content:"selectFilter"}],fillspace:2},
-                {id:"action", header:"Action",template:"{common.delButtP}",fillspace:true},
             ],
             type:{
-                delButtP:`<button type="button" class="delButtP"><span class="webix_icon fa-trash"></span> Remove</button>`
+                delButt:`<button type="button" class="delButt"><span class="webix_icon fa-trash"></span> Remove</button>`
             },
             onClick:{
-                delButtP:function(e,id,trg){
+                delButt:function(e,id,trg){
                     webix.confirm({
 						title: "Delete",
 						ok:"Yes", cancel:"No",
-						text:"Are you sure you want to delete this purchases",
+						text:"Are you sure you want to delete this sales",
 						type:"confirm-warning",
 						callback:function(result){
                             if (result) {
                                 // webix.message("deleting sales"+id);
                                 // console.log(id.row);
-                                var url = "/pop/apiv1/delete/creditpurchasereturn";
+                                var url = "/pos/apiv1/delete/cashsale";
                                 webix.ajax().post(url,{'id':id.row},function(t,r){
                                     var ms = r.json();
                                     if (ms.status) {
-                                        webix.message("Purchases Deleted");
-                                        $$("purchases_datatable_credit").remove(id);
+                                        webix.message("Sales Deleted");
+                                        $$("sales_dt_cash").remove(id);
                                     }else{
                                         webix.message("Could not delete, try again","error");
                                     }
@@ -160,14 +161,15 @@ var stock_purchases_credit = {
                             }
                         }
                     });
+
                 }
             }
         }
     ]
 }
 
-var credit_pr = {
-    header: "Credit Purchases Returns",
+var cash_sales = {
+    header:"Cash Sales",
     body: {
         type:"space",
         rows:[
@@ -179,7 +181,7 @@ var credit_pr = {
                         stringResult:true,
                         placeholder:"from",
                         label:"<b>start date:</b>",
-                        id:"from_date_credit",
+                        id:"from_date_cash",
                     },
                     {
                         width:300,
@@ -187,17 +189,18 @@ var credit_pr = {
                         stringResult:true,
                         placeholder:"to",
                         label:"<b>end date:</b>",
-                        id:"to_date_credit"
+                        id:"to_date_cash"
                     },{},
                     {
                         view:"combo",
                         placeholder:"Quick Dates",
                         width:150,
-                        id:"quick_date_credit",
+                        id:"quick_date_cash",
                         options:[
                             {id:1,value:"Today"},
                             {id:2,value:"This Week"},
-                            {id:3,value:"This Month"}
+                            {id:3,value:"This Month"},
+                            {id:4,value:"Reset"}
                         ],
                         on:{
                             onChange:function(){
@@ -205,33 +208,33 @@ var credit_pr = {
                                 switch (val) {
                                     case 1:
                                         var today = new Date();
-                                        $$("from_date_credit").setValue(today);
+                                        $$("from_date_cash").setValue(today);
                                         var from = today.toISOString().split("T")[0];
                                         today.setDate(today.getDate()+1);
-                                        $$("to_date_credit").setValue(today);
+                                        $$("to_date_cash").setValue(today);
                                         var to = today.toISOString().split("T")[0];
-                                        auto_run_date_credit(from,to);
+                                        auto_run_date_cash(from,to);
                                         break;
                                     case 2:
 
                                         var today = new Date();
                                         today.setDate(today.getDate()-today.getDay());
-                                        $$("from_date_credit").setValue(today);
+                                        $$("from_date_cash").setValue(today);
                                         var from = today.toISOString().split("T")[0];
                                         today.setDate(today.getDate()+7);
-                                        $$("to_date_credit").setValue(today);
+                                        $$("to_date_cash").setValue(today);
                                         var to = today.toISOString().split("T")[0];
-                                        auto_run_date_credit(from,to);
+                                        auto_run_date_cash(from,to);
                                         break;
                                     case 3:
                                         var today = new Date();
                                         today.setDate(today.getMonth());
-                                        $$("from_date_credit").setValue(today);
+                                        $$("from_date_cash").setValue(today);
                                         var from = today.toISOString().split("T")[0];
                                         today.setDate(today.getDate()+30);
-                                        $$("to_date_credit").setValue(today);
+                                        $$("to_date_cash").setValue(today);
                                         var to = today.toISOString().split("T")[0];
-                                        auto_run_date_credit(from,to);
+                                        auto_run_date_cash(from,to);
                                         break;
                                     default:
 
@@ -246,7 +249,7 @@ var credit_pr = {
                         icon:"industry",
                         autowidth:true,
                         click:function(){
-                            run_date_credit();
+                            run_date_cash();
                         }
                     },{},
                     {
@@ -256,12 +259,12 @@ var credit_pr = {
                         icon:"eye",
                         autowidth:true,
                         click:function(){
-                            $$("hide_show_wind_credit").show();
+                            $$("hide_show_wind_cash").show();
                         }
                     }
                 ]
             },
-            stock_purchases_credit,
+            stock_sales_cash,
         ]
     }
 }

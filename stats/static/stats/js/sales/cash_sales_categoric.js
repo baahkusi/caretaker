@@ -71,7 +71,7 @@ var product_cash_sales = {
              columns:[
                  {id:"cat_id", header:"#",sort:"int",fillspace:1,footer:"Total Cash Sales For Period : "},
                  {id:"cat", header:"Product",fillspace:1,},
-                 {header:"Total Cash Sales For Each Product",id:"record",format:webix.i18n.priceFormat,sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Cash Sales For Each Product",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {
@@ -200,7 +200,7 @@ var user_cash_sales = {
              columns:[
                  {id:"cat_id", header:"#",sort:"int",fillspace:1,footer:"Total Cash Sales For Period : "},
                  {id:"cat", header:"User",fillspace:1,},
-                 {header:"Total Cash Sales By Each User",id:"record",format:webix.i18n.priceFormat,sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Cash Sales By Each User",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {
@@ -329,7 +329,7 @@ var pay_cash_sales = {
              columns:[
                  {id:"cat_id", header:"#",sort:"int",fillspace:1,footer:"Total Cash Sales For Period : "},
                  {id:"cat", header:"Payment Method",fillspace:1,},
-                 {header:"Total Cash Sales To Each Payment Method",id:"record",format:webix.i18n.priceFormat,sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Cash Sales To Each Payment Method",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {

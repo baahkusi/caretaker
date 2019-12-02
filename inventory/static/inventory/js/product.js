@@ -93,7 +93,7 @@ var product_quantity_form = {
 		},
         {
 			view:"combo", label:'Why the Change', name:"comment",
-			options:["stolen","expired","gift","other"]
+			options:["initial","missing","expired","gift","other"]
 		},
 		{ view:"button", value: "Submit", click:function(){
 			if (this.getParentView().validate()){ //validate form
@@ -293,51 +293,52 @@ var product_actions = {
 					webix.message("Select a row by clicking on it");
 				}
             }
-        },{},
-		{
-			view:"button",
-            label:"Reset Stock / Inventory Level",
-            type:"iconButton",
-            icon:"recycle",
-            autowidth:true,
-            click:function(){
-                webix.confirm({
-					title: "Stock / Inventory Reset Warning",
-					ok:"Yes", cancel:"No",
-					text:"You are about to reset all stock / inventory level to zero ( 0 ). <br>Are you sure you want to continue with this action ?",
-					type:"confirm-warning",
-					callback:function(result){
-						if (result) {
-							webix.confirm({
-								title: "Stock / Inventory Reset Final Warning",
-								ok:"Yes", cancel:"No",
-								text:"Any quantity you've entered would be cleared and reset to Zero ( 0 ). <br>Are you sure you want to continue with this action ?",
-								type:"confirm-error",
-								callback:function(result){
-									if (result) {
-										url = '/inventory/apiv1/resets/inventory';
-										$$('product_datatable').clearAll();
-										$$('product_datatable').showOverlay('<b>Reset Operation Pending ...</b>');
-										webix.ajax().post(url,function(txt,res){
-											msg = res.json();
-											if (msg.status) {
-												$$("product_datatable").load("/inventory/apiv1/query/products");
-											}else{
-												webix.message('Action Failed','error');
-											}
-										});
-									}else{
-										webix.message('Action Aborted','error');
-									}
-								}
-							});
-						}else{
-							webix.message('Action Aborted','error');
-						}
-					}
-				});
-            }
-		},
+		}
+		,{},
+		// {
+		// 	view:"button",
+        //     label:"Reset Stock / Inventory Level",
+        //     type:"iconButton",
+        //     icon:"recycle",
+        //     autowidth:true,
+        //     click:function(){
+        //         webix.confirm({
+		// 			title: "Stock / Inventory Reset Warning",
+		// 			ok:"Yes", cancel:"No",
+		// 			text:"You are about to reset all stock / inventory level to zero ( 0 ). <br>Are you sure you want to continue with this action ?",
+		// 			type:"confirm-warning",
+		// 			callback:function(result){
+		// 				if (result) {
+		// 					webix.confirm({
+		// 						title: "Stock / Inventory Reset Final Warning",
+		// 						ok:"Yes", cancel:"No",
+		// 						text:"Any quantity you've entered would be cleared and reset to Zero ( 0 ). <br>Are you sure you want to continue with this action ?",
+		// 						type:"confirm-error",
+		// 						callback:function(result){
+		// 							if (result) {
+		// 								url = '/inventory/apiv1/resets/inventory';
+		// 								$$('product_datatable').clearAll();
+		// 								$$('product_datatable').showOverlay('<b>Reset Operation Pending ...</b>');
+		// 								webix.ajax().post(url,function(txt,res){
+		// 									msg = res.json();
+		// 									if (msg.status) {
+		// 										$$("product_datatable").load("/inventory/apiv1/query/products");
+		// 									}else{
+		// 										webix.message('Action Failed','error');
+		// 									}
+		// 								});
+		// 							}else{
+		// 								webix.message('Action Aborted','error');
+		// 							}
+		// 						}
+		// 					});
+		// 				}else{
+		// 					webix.message('Action Aborted','error');
+		// 				}
+		// 			}
+		// 		});
+        //     }
+		// },
     ]
 }
 
@@ -352,10 +353,10 @@ var product_datatable = {
             columns:[
                 {id:"id", header:"#",hidden:false},
                 {id:"name",header:[ "Product",{content:"textFilter"}],sort:"text",fillspace:2},
-                {id:"cp", header:"Unit C.P.",sort:"int"},
-                {id:"sp", header:"Unit S.P.",sort:"int"},
+                {id:"cp", header:["Unit C.P.  GH&#8373;",{content:"numberFilter"}],sort:"int",fillspace:2},
+                {id:"sp", header:["Unit S.P.  GH&#8373;",{content:"numberFilter"}],sort:"int",fillspace:2},
                 {id:"quantity", header:" Qty",sort:"int"},
-                {id:"category_id", header:["Category"],sort:"text"},
+                {id:"category_id", header:["Category",{content:"selectFilter"}],sort:"text",fillspace:2},
                 // {id:"code", header:"Code"},
                 {id:"min_stock", header:"Min O.L.",sort:"int"},
                 {id:"max_stock", header:"Max O.L.",sort:"int"},

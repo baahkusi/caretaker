@@ -73,7 +73,7 @@ var daily_credit_sr = {
                  {id:"month", header:"Month",fillspace:1,},
                  {id:"day", header:"Day of Year",sort:"int",fillspace:1},
                  {id:"date", header:"Date",sort:"text",fillspace:2},
-                 {header:"Total Credit Sales Returns For Each Day",id:"record",format:webix.i18n.priceFormat,sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Credit Sales Returns For Each Day",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {
@@ -203,7 +203,7 @@ var weekly_credit_sr = {
                  {id:"year", header:"Year",sort:"int",fillspace:1,footer:"Total Credit Sales Returns For Period : "},
                  {id:"month", header:"Month",fillspace:1,},
                  {id:"week", header:"Week",sort:"text",fillspace:1,template:"Week  #week#"},
-                 {header:"Total Credit Sales Returns For Each Week",id:"record",format:webix.i18n.priceFormat,sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Credit Sales Returns For Each Week",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {
@@ -332,7 +332,7 @@ var monthly_credit_sr = {
              columns:[
                  {id:"year", header:"Year",sort:"int",fillspace:1,footer:"Total Credit Sales Returns For Period : "},
                  {id:"mname", header:"Month",fillspace:2,},
-                 {header:"Total Credit Sales Returns For Each Month",id:"record",format:webix.i18n.priceFormat,sort:"int",fillspace:3,footer:{content:"summColumn"}},
+                 {header:"Total Credit Sales Returns For Each Month",id:"record",sort:"int",fillspace:3,footer:{content:"summColumn"}},
              ],
             },
             {
@@ -460,7 +460,7 @@ var yearly_credit_sr = {
              math:true,
              columns:[
                  {id:"year", header:"Year",sort:"int",fillspace:1,footer:"Total Credit Sales Returns For Period : "},
-                 {header:"Total Credit Sales Returns For Each Year",id:"record",format:webix.i18n.priceFormat,sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Credit Sales Returns For Each Year",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {

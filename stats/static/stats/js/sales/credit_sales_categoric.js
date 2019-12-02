@@ -71,7 +71,7 @@ var product_credit_sales = {
              columns:[
                  {id:"cat_id", header:"#",sort:"int",fillspace:1,footer:"Total Credit Sales For Period : "},
                  {id:"cat", header:"Product",fillspace:1,},
-                 {header:"Total Credit Sales For Each Product",id:"record",format:webix.i18n.priceFormat,sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Credit Sales For Each Product",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {
@@ -200,7 +200,7 @@ var user_credit_sales = {
              columns:[
                  {id:"cat_id", header:"#",sort:"int",fillspace:1,footer:"Total Credit Sales For Period : "},
                  {id:"cat", header:"User",fillspace:1,},
-                 {header:"Total Credit Sales By Each User",id:"record",format:webix.i18n.priceFormat,sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Credit Sales By Each User",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {
