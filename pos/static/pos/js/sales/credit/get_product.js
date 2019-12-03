@@ -1,7 +1,11 @@
 function mySubmit(){
 	if ($$("get_product_form").validate()){ //validate form
 		var fparam = $$("get_product_form").getValues();
-		console.log(fparam);
+		// console.log(fparam);
+		if(fparam.order_qty <= 0){
+			webix.message('Quantity can\'t be '+fparam.order_qty, 'error');
+			return;
+		}
 		diff = fparam.quantity - fparam.order_qty+1;
 		if (diff>0) {
 			if (diff>fparam.min_stock) {

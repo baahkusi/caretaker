@@ -2,3 +2,6 @@
 *.cpy
 ./custom/receipts/
 db.*
+error.log
+./blob_storage
+./webrtc_events_logs

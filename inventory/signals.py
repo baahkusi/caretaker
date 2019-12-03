@@ -8,6 +8,8 @@ def incrememt_prod_qty(sender, instance, created, **kwargs):
     if created:
         prod = instance.product
         prod.quantity = F('quantity') + instance.quantity
+        prod.cp = instance.cp
+        prod.sp = instance.sp
         prod.save()
     else:
         diff = instance.quantity - instance.tempq
@@ -16,6 +18,8 @@ def incrememt_prod_qty(sender, instance, created, **kwargs):
         else:
             prod = instance.product
             prod.quantity = F('quantity') + diff
+            prod.cp = instance.cp
+            prod.sp = instance.sp
             prod.save()
 
 @receiver(post_save, sender=InventoryDecrement)
@@ -23,6 +27,8 @@ def decrememt_prod_qty(sender, instance, created, **kwargs):
     if created:
         prod = instance.product
         prod.quantity = F('quantity') - instance.quantity
+        prod.cp = instance.cp
+        prod.sp = instance.sp
         prod.save()
     else:
         diff = instance.quantity - instance.tempq
@@ -31,4 +37,6 @@ def decrememt_prod_qty(sender, instance, created, **kwargs):
         else:
             prod = instance.product
             prod.quantity = F('quantity') - diff
+            prod.cp = instance.cp
+            prod.sp = instance.sp
             prod.save()

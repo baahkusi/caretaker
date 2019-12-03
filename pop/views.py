@@ -53,7 +53,7 @@ class CreateCreditPurchase(JSONCreateMultipleView):
             'currency':'GH CEDIS',
             'rdate':data['invoice_time'],
         }
-        print_invoice(data['items'], opts)
+        # print_invoice(data['items'], opts)
 #edit view
 class UpdateCreditPurchase(JSONUpdateView):
     model = CreditPurchase
@@ -111,7 +111,7 @@ class CreateCashPurchase(JSONCreateMultipleView):
             'currency':'GH CEDIS',
             'rdate':data['receipt_time'],
         }
-        print_invoice(data['items'], opts)
+        # print_invoice(data['items'], opts)
 #edit view
 class UpdateCashPurchase(JSONUpdateView):
     model = CashPurchase
@@ -175,7 +175,7 @@ class CreateCreditPurchaseReturn(JSONCreateMultipleView):
             'currency':'GH CEDIS',
             'rdate':data['invoice_time'],
         }
-        print_invoice(data['items'], opts)
+        # print_invoice(data['items'], opts)
 #edit view
 class UpdateCreditPurchaseReturn(JSONUpdateView):
     model = CreditPurchaseReturn
@@ -233,7 +233,7 @@ class CreateCashPurchaseReturn(JSONCreateMultipleView):
             'currency':'GH CEDIS',
             'rdate':data['receipt_time'],
         }
-        print_invoice(data['items'], opts)
+        # print_invoice(data['items'], opts)
 #edit view
 class UpdateCashPurchaseReturn(JSONUpdateView):
     model = CashPurchaseReturn

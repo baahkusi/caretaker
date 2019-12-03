@@ -1,9 +1,13 @@
 function mySubmit(){
 	if ($$("get_product_form").validate()){ //validate form
 		var fparam = $$("get_product_form").getValues();
+		if(fparam.order_qty <= 0){
+			webix.message('Quantity can\'t be '+fparam.order_qty, 'error');
+			return;
+		}
 		sum = parseInt(fparam.quantity) + parseInt(fparam.order_qty);
-		console.log(sum);
-		console.log(fparam.max_stock);
+		// console.log(sum);
+		// console.log(fparam.max_stock);
 		if (sum<=fparam.max_stock) {
 			$$("pop_datatable").add(fparam);
 			$$("get_product").focus();
@@ -54,7 +58,7 @@ var product_form = {
 					, function(text,response) {
 
 					msg = response.json();
-                    console.log(msg);
+                    // console.log(msg);
 					if (msg.status){
 						webix.message(msg.msg);
 						var product_list = $$("get_product").getPopup().getList();
@@ -162,8 +166,20 @@ var get_product_form = {
         { view:"text", label:'ID', name:"id",hidden:true,disabled:true,readonly:true},
 		{ view:"text", label:'Product', name:"name",readonly:true,value:"My text",disabled:true},
         { view:"text", label:'Stock on Hand', name:"quantity",disabled:true,readonly:true},
-        { view:"text", label:'CP', name:"cp",readonly:true,hidden:true,disabled:true},
-        { view:"text", label:'Price (GH&#8373;)', name:"sp",disabled:true,readonly:true},
+        {
+			view: "counter", step:1,min:1, label: 'CP (GH&#8373;)', name: "cp", on: {
+				onEnter: function () {
+					$$("get_product_form").elements.sp.focus();
+				}
+			}
+		},
+		{
+			view: "counter",step:1,min:1, label: 'SP (GH&#8373;)', name: "sp", on: {
+				onEnter: function () {
+					$$("get_product_form").elements.order_qty.focus();
+				}
+			}
+		},
         { view:"text", label:'Code', name:"code",disabled:true,readonly:true,hidden:true},
         {
 			view:"counter",
@@ -297,7 +313,7 @@ var get_product = {
 									   $$("get_product_window").getBody().clear();
 									   $$("get_product_window").show();
 									   $$("get_product_form").parse(data);
-									   $$("get_product_window").getBody().elements.order_qty.focus();
+									   $$("get_product_window").getBody().elements.cp.focus();
 									}
 								}else{
 									webix.message("this product no longer exists","error");

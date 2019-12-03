@@ -51,7 +51,7 @@ class CreateCreditSale(JSONCreateMultipleView):
             'currency':'GH CEDIS',
             'rdate':data['invoice_time'],
         }
-        print_invoice(data['items'], opts)
+        # print_invoice(data['items'], opts)
 #edit view
 class UpdateCreditSale(JSONUpdateView):
     model = CreditSale
@@ -107,7 +107,7 @@ class CreateCashSale(JSONCreateMultipleView):
             'currency':'GH CEDIS',
             'rdate':data['receipt_time'],
         }
-        print_invoice(data['items'], opts)
+        # print_invoice(data['items'], opts)
 
 #edit view
 class UpdateCashSale(JSONUpdateView):
@@ -173,7 +173,7 @@ class CreateCreditSalesReturn(JSONCreateMultipleView):
             'currency':'GH CEDIS',
             'rdate':data['invoice_time'],
         }
-        print_invoice(data['items'], opts)
+        # print_invoice(data['items'], opts)
 #edit view
 class UpdateCreditSalesReturn(JSONUpdateView):
     model = CreditSalesReturn
@@ -230,7 +230,7 @@ class CreateCashSalesReturn(JSONCreateMultipleView):
             'currency':'GH CEDIS',
             'rdate':data['receipt_time'],
         }
-        print_invoice(data['items'], opts)
+        # print_invoice(data['items'], opts)
 #edit view
 class UpdateCashSalesReturn(JSONUpdateView):
     model = CashSalesReturn

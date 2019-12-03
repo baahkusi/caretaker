@@ -31,7 +31,7 @@ function save_credit_sales(print_invoice){
         // console.log(JSON.stringify(sales));
         customer = $$("get_customer").getValue();
         if (customer) {
-            webix.message("customer");
+            // webix.message("customer");
             customer_name = $$("get_customer").getPopup().getList().getItem(customer).value;
             final_data['sales'] = sales;
             final_data['customer'] = customer;
@@ -41,7 +41,7 @@ function save_credit_sales(print_invoice){
             // First create a receipt
             url = "/invoice/apiv1/create/salesinvoice";
             rand = Math.floor(Math.random() * (9999 - 99 + 1)) + 99;
-            console.log(rand);
+            // console.log(rand);
             invoice_number = "SI"+rand;
             invoice_data = {
                 number:invoice_number,
