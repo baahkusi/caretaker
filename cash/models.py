@@ -20,7 +20,7 @@ class Change(models.Model):
     tempa = models.DecimalField(max_digits=10, decimal_places=3,null=True,blank=True)
     comment = models.CharField(max_length=256,default="",blank=True)
     employee = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
-    content_type = models.ForeignKey(ContentType,               on_delete=models.CASCADE,blank=True,null=True)
+    content_type = models.ForeignKey(ContentType,on_delete=models.CASCADE,blank=True,null=True)
     # cause of change purchases|sales|purchasesreturns|salesreturns
     object_id = models.PositiveIntegerField(blank=True,null=True)
     content_object = GenericForeignKey()

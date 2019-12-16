@@ -73,7 +73,7 @@ var daily_cash_pc = {
                  {id:"month", header:"Month",fillspace:1,},
                  {id:"day", header:"Day of Year",sort:"int",fillspace:1},
                  {id:"date", header:"Date",sort:"text",fillspace:2},
-                 {header:"Total Cash Purchases For Each Day",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Cash Purchases For Each Day",format:webix.i18n.priceFormat,id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {
@@ -203,7 +203,7 @@ var weekly_cash_pc = {
                  {id:"year", header:"Year",sort:"int",fillspace:1,footer:"Total Cash Purchases For Period : "},
                  {id:"month", header:"Month",fillspace:1,},
                  {id:"week", header:"Week",sort:"text",fillspace:1,template:"Week  #week#"},
-                 {header:"Total Cash Purchases For Each Week",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Cash Purchases For Each Week",format:webix.i18n.priceFormat,id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {
@@ -332,7 +332,7 @@ var monthly_cash_pc = {
              columns:[
                  {id:"year", header:"Year",sort:"int",fillspace:1,footer:"Total Cash Purchases For Period : "},
                  {id:"mname", header:"Month",fillspace:2,},
-                 {header:"Total Cash Purchases For Each Month",id:"record",sort:"int",fillspace:3,footer:{content:"summColumn"}},
+                 {header:"Total Cash Purchases For Each Month",format:webix.i18n.priceFormat,id:"record",sort:"int",fillspace:3,footer:{content:"summColumn"}},
              ],
             },
             {
@@ -460,7 +460,7 @@ var yearly_cash_pc = {
              math:true,
              columns:[
                  {id:"year", header:"Year",sort:"int",fillspace:1,footer:"Total Cash Purchases For Period : "},
-                 {header:"Total Cash Purchases For Each Year",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Cash Purchases For Each Year",format:webix.i18n.priceFormat,id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {

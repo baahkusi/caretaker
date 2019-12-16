@@ -335,7 +335,7 @@ var systems_dt = {
                 {id:"id", header:"#",hidden:false},
                 {id:"system", header:"Payment System",sort:"text",fillspace:2,footer:"Total Balance : "},
                 {id:"currency", header:"Currency",sort:"int",fillspace:2},
-                {id:"balance", header:"Balance",footer:{content:"summColumn"},sort:"int",fillspace:2},
+                {id:"balance", header:"Balance",footer:{content:"summColumn"},format:webix.i18n.priceFormat,sort:"int",fillspace:2},
                 {id:"comment", header:"Comment",sort:"int",fillspace:5},
             ],
             on:{

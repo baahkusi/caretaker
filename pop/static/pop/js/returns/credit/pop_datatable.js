@@ -16,8 +16,8 @@ var pop_datatable = {
                 {id:"product_name", header:"Item / Product",fillspace:true,footer:"Sub Total :"},
                 {id:"old_quantity", header:"Quantity Purchased",fillspace:true},
                 {id:"quantity", header:"Quantity to be Returned",fillspace:true,editor:"text"},
-                {id:"sp", header:"Unit Price GH&#8373;",fillspace:true},
-                {id:"amount", header:["Amount GH&#8373;"],math:"[$r,sp]*[$r,quantity]",footer:{content:"summColumn"},sort:"int",fillspace:true},
+                {id:"sp",format:webix.i18n.numberFormat, header:"Unit Price GH&#8373;",fillspace:true},
+                {id:"amount",format:webix.i18n.numberFormat, header:["Amount GH&#8373;"],math:"[$r,cp]*[$r,quantity]",footer:{content:"summColumn"},sort:"int",fillspace:true},
                 {id:"action", header:"Action",template:"{common.delButt}",fillspace:true},
             ],
             on:{

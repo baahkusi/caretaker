@@ -144,14 +144,14 @@ var systems_history = {
                         footer:true,
                     	columns:[
                     		{id:"system", header:["Payment System",{content:"selectFilter"}],fillspace:2},
-                    		{id:"init", header:["Initial Bal",{content:"numberFilter"}],fillspace:2,sort:"int",footer:{content:"summColumn"}},
-                            {id:"inc", header:["Increments",{content:"numberFilter"}],fillspace:2,sort:"int",footer:{content:"summColumn"}},
-                            {id:"sales", header:["Sales",{content:"numberFilter"}],fillspace:2,sort:"int",footer:{content:"summColumn"}},
-                            {id:"pr", header:["Purchases Returns",{content:"numberFilter"}],fillspace:2,sort:"int",footer:{content:"summColumn"}},
-                            {id:"dec", header:["Decrements",{content:"numberFilter"}],fillspace:2,sort:"int",footer:{content:"summColumn"}},
-                            {id:"purchases", header:["Purchases",{content:"numberFilter"}],fillspace:2,sort:"int",footer:{content:"summColumn"}},
-                            {id:"sr", header:["Sales Returns",{content:"numberFilter"}],fillspace:2,sort:"int",footer:{content:"summColumn"}},
-                            {id:"end", header:["Ending Bal",{content:"numberFilter"}],fillspace:2,sort:"int",footer:{content:"summColumn"}},
+                    		{id:"init", header:["Initial Bal",{content:"numberFilter"}],format:webix.i18n.priceFormat,fillspace:2,sort:"int",footer:{content:"summColumn"}},
+                            {id:"inc", header:["Increments",{content:"numberFilter"}],format:webix.i18n.priceFormat,fillspace:2,sort:"int",footer:{content:"summColumn"}},
+                            {id:"sales", header:["Sales",{content:"numberFilter"}],format:webix.i18n.priceFormat,fillspace:2,sort:"int",footer:{content:"summColumn"}},
+                            {id:"pr", header:["Purchases Returns",{content:"numberFilter"}],format:webix.i18n.priceFormat,fillspace:2,sort:"int",footer:{content:"summColumn"}},
+                            {id:"dec", header:["Decrements",{content:"numberFilter"}],format:webix.i18n.priceFormat,fillspace:2,sort:"int",footer:{content:"summColumn"}},
+                            {id:"purchases", header:["Purchases",{content:"numberFilter"}],format:webix.i18n.priceFormat,fillspace:2,sort:"int",footer:{content:"summColumn"}},
+                            {id:"sr", header:["Sales Returns",{content:"numberFilter"}],format:webix.i18n.priceFormat,fillspace:2,sort:"int",footer:{content:"summColumn"}},
+                            {id:"end", header:["Ending Bal",{content:"numberFilter"}],format:webix.i18n.priceFormat,fillspace:2,sort:"int",footer:{content:"summColumn"}},
                     	],
                     	on:{
                     		onBeforLoad:function(){

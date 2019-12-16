@@ -15,18 +15,18 @@ var product_form = {
                 { view:"counter", step:0.5,label:'Selling Price', name:"sp",min:0 },
             ]
         },
-        {
-            cols:[
-                {view:"counter", step:10,label:'Minimum Stock', name:"min_stock",min:0 },
-                { view:"counter", step:10,label:'Maximum Stock', name:"max_stock",min:0 },
-            ]
-        },
-        {
-            cols:[
-                { view:"text", label:'Unit of measure', name:"unit_of_measure" },
-                // { view:"text", label:'Code', name:"code" },
-            ]
-        },
+        // {
+        //     cols:[
+        //         {view:"counter", step:10,label:'Minimum Stock', name:"min_stock",min:0 },
+        //         { view:"counter", step:10,label:'Maximum Stock', name:"max_stock",min:0 },
+        //     ]
+        // },
+        // {
+        //     cols:[
+        //         { view:"text", label:'Unit of measure', name:"unit_of_measure" },
+        //         // { view:"text", label:'Code', name:"code" },
+        //     ]
+        // },
         // { view:"text", label:'Description', name:"desc" },
 		{ view:"button", value: "Submit", click:function(){
 			if (this.getParentView().validate()){ //validate form
@@ -348,19 +348,24 @@ var product_datatable = {
         {
             view: "datatable",
             id:"product_datatable",
-            url:"/inventory/apiv1/query/products",
+			url:"/inventory/apiv1/query/products",
+			math:true,
+			footer:true,
             select:"row",
             columns:[
                 {id:"id", header:"#",hidden:false},
                 {id:"name",header:[ "Product",{content:"textFilter"}],sort:"text",fillspace:2},
-                {id:"cp", header:["Unit C.P.  GH&#8373;",{content:"numberFilter"}],sort:"int",fillspace:2},
-                {id:"sp", header:["Unit S.P.  GH&#8373;",{content:"numberFilter"}],sort:"int",fillspace:2},
-                {id:"quantity", header:" Qty",sort:"int"},
+                {id:"cp", header:["Unit C.P.  GH&#8373;",{content:"numberFilter"}],format:webix.i18n.numberFormat,sort:"int",fillspace:1},
+                {id:"sp", header:["Unit S.P.  GH&#8373;",{content:"numberFilter"}],format:webix.i18n.numberFormat,sort:"int",fillspace:1},
+				{id:"quantity", header:" Qty",sort:"int",fillspace:1},
+				{id:"tcp",math:"[$r,cp]*[$r,quantity]", header:["Total C.P.  GH&#8373;",{content:"numberFilter"}],format:webix.i18n.numberFormat,footer:{content:"summColumn"},sort:"int",fillspace:2},
+				{id:"tsp",math:"[$r,sp]*[$r,quantity]", header:["Total S.P.  GH&#8373;",{content:"numberFilter"}],format:webix.i18n.numberFormat,footer:{content:"summColumn"},sort:"int",fillspace:2},
+				{id:"mgp", math:"[$r, tsp]-[$r, tcp]",header:["Expected Profit  GH&#8373;",{content:"numberFilter"}],format:webix.i18n.numberFormat,footer:{content:"summColumn"},sort:"int",fillspace:2},
                 {id:"category_id", header:["Category",{content:"selectFilter"}],sort:"text",fillspace:2},
                 // {id:"code", header:"Code"},
-                {id:"min_stock", header:"Min O.L.",sort:"int"},
-                {id:"max_stock", header:"Max O.L.",sort:"int"},
-                {id:"unit_of_measure", header:"Unit"},
+                // {id:"min_stock", header:"Min O.L.",sort:"int"},
+                // {id:"max_stock", header:"Max O.L.",sort:"int"},
+                // {id:"unit_of_measure", header:"Unit"},
                 // {id:"desc", header:"Description",fillspace:5},
             ],
             on:{

@@ -124,7 +124,7 @@ var sales_receipt = {
         {id:"customer_name", header:["Customer",{content:"selectFilter"}],sort:"text",fillspace:true},
         {id:"employee", header:["User",{content:"selectFilter"}],sort:"text",fillspace:true},
         {id:"stati", header:["Status",{content:"selectFilter"}],sort:"text",fillspace:true},
-        {id:"amount", header:["Amount",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true},
+        {id:"amount",format:webix.i18n.priceFormat, header:["Amount",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true},
         {id:"payment", header:["Payment Method",{content:"selectFilter"}],sort:"text",fillspace:true},
     ],
     on:{
@@ -224,7 +224,7 @@ var sales_return_receipt = {
           {id:"number", header:["Receipt ID",{content:"textFilter"}],sort:"text",fillspace:true},
           {id:"customer_name", header:["Customer",{content:"selectFilter"}],sort:"text",fillspace:true},
           {id:"employee", header:["User",{content:"selectFilter"}],sort:"text",fillspace:true},
-          {id:"amount", header:["Amount",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true},
+          {id:"amount",format:webix.i18n.priceFormat, header:["Amount",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true},
           {id:"payment", header:["Payment Method",{content:"selectFilter"}],sort:"text",fillspace:true},
       ],
       on:{
@@ -313,7 +313,7 @@ var purchases_receipt = {
           {id:"supplier_name", header:["Supplier",{content:"selectFilter"}],sort:"text",fillspace:true},
           {id:"employee", header:["User",{content:"selectFilter"}],sort:"text",fillspace:true},
           {id:"stati", header:["Status",{content:"selectFilter"}],sort:"text",fillspace:true},
-          {id:"amount", header:["Amount",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true},
+          {id:"amount",format:webix.i18n.priceFormat, header:["Amount",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true},
           {id:"payment", header:["Payment Method",{content:"selectFilter"}],sort:"text",fillspace:true},
       ],
       on:{
@@ -414,7 +414,7 @@ var purchases_return_receipt = {
           {id:"number", header:["Receipt ID",{content:"textFilter"}],sort:"text",fillspace:true},
           {id:"supplier_name", header:["Supplier",{content:"selectFilter"}],sort:"text",fillspace:true},
           {id:"employee", header:["User",{content:"selectFilter"}],sort:"text",fillspace:true},
-          {id:"amount", header:["Amount",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true},
+          {id:"amount",format:webix.i18n.priceFormat, header:["Amount",{content:"numberFilter"}],sort:"text",footer:{content:"summColumn"},fillspace:true},
           {id:"payment", header:["Payment Method",{content:"selectFilter"}],sort:"text",fillspace:true},
       ],
       on:{

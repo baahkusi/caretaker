@@ -128,7 +128,7 @@ var stock_purchases_cash = {
                 {id:"product_name", header:["Product",{content:"selectFilter"}],sort:"text",fillspace:2},
                 {id:"cp", header:["Unit C.P.","GH&#8373;"],fillspace:2},
                 {id:"quantity", header:" Qty",footer:{content:"summColumn"},sort:"int"},
-                {id:"amount", header:["Amount","GH&#8373;"],math:"[$r,cp]*[$r,quantity]",footer:{content:"summColumn"},sort:"int",fillspace:3},
+                {id:"amount", header:["Amount","GH&#8373;"],math:"[$r,cp]*[$r,quantity]",format:webix.i18n.priceFormat,footer:{content:"summColumn"},sort:"int",fillspace:3},
                 {id:"supplier_name", header:["Supplier",{content:"selectFilter"}],sort:"text",fillspace:2},
                 {id:"employee_id", header:["User",{content:"selectFilter"}],fillspace:2},
                 {id:"action", header:"Action",template:"{common.delButtP}",fillspace:true},

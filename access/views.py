@@ -178,7 +178,7 @@ class LogoutUserView(View):
 
 class UserIdFace(View):
     def get(self, request, *args, **kwargs):
-        users = User.objects.get()
+        users = User.objects.all()
         data = []
         for user in users:
             data.append({

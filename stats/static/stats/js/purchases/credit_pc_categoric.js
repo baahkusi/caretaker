@@ -71,7 +71,7 @@ var product_credit_pc = {
              columns:[
                  {id:"cat_id", header:"#",sort:"int",fillspace:1,footer:"Total Credit Purchases For Period : "},
                  {id:"cat", header:"Product",fillspace:1,},
-                 {header:"Total Credit Purchases For Each Product",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Credit Purchases For Each Product",format:webix.i18n.priceFormat,id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {

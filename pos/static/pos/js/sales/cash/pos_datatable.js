@@ -14,8 +14,8 @@ var pos_datatable = {
             columns:[
                 {id:"name", header:"Item / Product",fillspace:true,footer:"Sub Total :"},
                 {id:"order_qty", header:"Quantity",fillspace:true,editor:"text"},
-                {id:"sp", header:"Unit Price GH&#8373;",fillspace:true},
-                {id:"amount", header:["Amount GH&#8373;"],math:"[$r,sp]*[$r,order_qty]",footer:{content:"summColumn"},sort:"int",fillspace:true},
+                {id:"sp",format:webix.i18n.numberFormat, header:"Unit Price GH&#8373;",fillspace:true},
+                {id:"amount",format:webix.i18n.numberFormat, header:["Amount GH&#8373;"],math:"[$r,sp]*[$r,order_qty]",footer:{content:"summColumn"},sort:"int",fillspace:true},
                 {id:"action", header:"Action",template:"{common.delButt}",fillspace:true},
             ],
             on:{

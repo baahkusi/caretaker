@@ -14,9 +14,9 @@ var pop_datatable = {
             columns:[
                 {id:"name", header:"Item / Product",fillspace:true,footer:"Sub Total :"},
                 {id:"order_qty", header:"Quantity",fillspace:true,editor:"text"},
-                {id:"cp", header:"Unit CP GH&#8373;",fillspace:true, editor:"text"},
-                {id:"sp", header:"Unit SP GH&#8373;",fillspace:true, editor:"text"},
-                {id:"amount", header:["Amount GH&#8373;"],math:"[$r,sp]*[$r,order_qty]",footer:{content:"summColumn"},sort:"int",fillspace:true},
+                {id:"cp", header:"Unit CP GH&#8373;",format:webix.i18n.numberFormat,fillspace:true, editor:"text"},
+                {id:"sp", header:"Unit SP GH&#8373;",format:webix.i18n.numberFormat,fillspace:true, editor:"text"},
+                {id:"amount", header:["Amount GH&#8373;"],format:webix.i18n.numberFormat,math:"[$r,cp]*[$r,order_qty]",footer:{content:"summColumn"},sort:"int",fillspace:true},
                 {id:"comment", header:"Comment",fillspace:true,editor:"text"},
                 {id:"action", header:"Action",template:"{common.delButt}",fillspace:true},
             ],

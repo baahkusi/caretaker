@@ -143,7 +143,7 @@ var inventory_history_dt = {
                     	select:"row",
                         footer:true,
                     	columns:[
-                    		{id:"product", header:["Product",{content:"selectFilter"}],fillspace:4},
+                    		{id:"product", header:["Product",{content:"textFilter"}],fillspace:4},
                     		{id:"init", header:["Initial Qty",{content:"numberFilter"}],fillspace:2,sort:"int",format:webix.i18n.numberFormat,footer:{content:"summColumn"}},
                             {id:"inc", header:["Increments",{content:"numberFilter"}],fillspace:2,sort:"int",format:webix.i18n.numberFormat,footer:{content:"summColumn"}},
                             {id:"purchases", header:["Purchases",{content:"numberFilter"}],fillspace:2,sort:"int",format:webix.i18n.numberFormat,footer:{content:"summColumn"}},

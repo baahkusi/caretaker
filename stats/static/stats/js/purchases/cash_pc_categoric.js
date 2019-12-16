@@ -71,7 +71,7 @@ var product_cash_pc = {
              columns:[
                  {id:"cat_id", header:"#",sort:"int",fillspace:1,footer:"Total Cash Purchases For Period : "},
                  {id:"cat", header:"Product",fillspace:1,},
-                 {header:"Total Cash Purchases For Each Product",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Cash Purchases For Each Product",format:webix.i18n.priceFormat,id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {
@@ -200,7 +200,7 @@ var user_cash_pc = {
              columns:[
                  {id:"cat_id", header:"#",sort:"int",fillspace:1,footer:"Total Cash Purchases For Period : "},
                  {id:"cat", header:"User",fillspace:1,},
-                 {header:"Total Cash Purchases By Each User",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Cash Purchases By Each User",format:webix.i18n.priceFormat,id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {
@@ -329,7 +329,7 @@ var pay_cash_pc = {
              columns:[
                  {id:"cat_id", header:"#",sort:"int",fillspace:1,footer:"Total Cash Purchases For Period : "},
                  {id:"cat", header:"Payment Method",fillspace:1,},
-                 {header:"Total Cash Purchases To Each Payment Method",id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
+                 {header:"Total Cash Purchases To Each Payment Method",format:webix.i18n.priceFormat,id:"record",sort:"int",fillspace:2,footer:{content:"summColumn"}},
              ],
             },
             {

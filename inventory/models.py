@@ -9,7 +9,7 @@ class Category(models.Model):
     name = models.CharField(max_length=50,unique=True)
     
     # code = models.CharField(max_length=10,unique=True)
-    # desc = models.CharField(max_length=256)
+    desc = models.CharField(max_length=256,null=True,blank=True)
 
 class Product(models.Model):
     name = models.CharField(max_length=50,unique=True)

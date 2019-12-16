@@ -22,7 +22,7 @@ var toolbar = {
 				 $$("side").toggle()
 			 }
 		 },
-		 {view:"label",label:"<b>Caretaker Point of Sales v2.0 by SBKSoftwares</b>"},
+		 {view:"label",label:"<b>RxPoint v2.0</b>"},
 		 {},
 		 {
 			 view:"icon",

@@ -2,7 +2,7 @@ webix.i18n.locales["gh-GH"]={   //"es-ES" - the locale name, the same as the fil
   groupDelimiter:" ",       //a mark that divides numbers with many digits into groups
   groupSize:3,              //the number of digits in a group
   decimalDelimiter:".",     //the decimal delimiter
-  decimalSize:2,            //the number of digits after the decimal mark
+  decimalSize:3,            //the number of digits after the decimal mark
 
   //applied to columns with 'format:webix.i18n.dateFormatStr'
   dateFormat:"%d/%m/%Y",

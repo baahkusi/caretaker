@@ -11,7 +11,7 @@ class Receipt(models.Model):
         ('600','Returned'),
         ('000','Voided'),
     )
-    number = models.CharField(max_length=256)
+    number = models.CharField(max_length=256,null=True)
     employee = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     status = models.CharField(max_length=32,choices=STATUS,default='007',blank=True)
     timestamp = models.DateTimeField(auto_now_add=True,null=True)
